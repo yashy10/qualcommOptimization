@@ -1,0 +1,22 @@
+{
+  "student_model_int8.onnx": {
+    "bytes": 2151628,
+    "sha256": "e80fd982b0ab1c8fa4bba0626b568bfa8d804c559b2629beb684a347295c886a"
+  },
+  "metrics.json": {
+    "bytes": 3865,
+    "sha256": "52abbd7065d8530274314627f6f53cc95bd11d3402ad56e5fda2f3857e87ed80"
+  },
+  "technical_report.pdf": {
+    "bytes": 232669,
+    "sha256": "3087fcf092ce7f2cfb15db3735cb9fe064498c0c100bfcf7f54051a35d04110e"
+  },
+  "technical_report_2page.pdf": {
+    "bytes": 224938,
+    "sha256": "272f0563b2e3ccd12d83e6cd15abaf01b816cc000803abb290ec0ca888a5ac99"
+  },
+  "technical_report_latex.zip": {
+    "bytes": 41939,
+    "sha256": "11f9a1772cccb6d72beb4412073b931b2eceabd98f3fafe687f40968928d0c57"
+  }
+}

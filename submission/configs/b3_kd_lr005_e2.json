@@ -1,0 +1,54 @@
+{
+  "name": "b3_kd_lr005_e2",
+  "created_at": "2026-10-13T15:41:54",
+  "source_model": "models/stageA/a2_blocks3.pt",
+  "source_config": "configs/a2_blocks3.json",
+  "fine_tune": {
+    "data": "subsets/finetune_subset_20.json",
+    "images": 5400,
+    "augmentation": "none",
+    "optimizer": "SGD momentum 0.9, lr 0.005, cosine to 0, weight decay 4e-05",
+    "batch_size": 32,
+    "epochs": 2,
+    "seed": 0,
+    "device": "mps",
+    "loss": "(1-0.7)*CE + 0.7*T^2*KL, T=4.0",
+    "teacher_cache": "cache/teacher_logits_ft20.pt"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "mean_loss": 2.3965,
+      "quick_eval_accuracy": 89.41,
+      "seconds": 36
+    },
+    {
+      "epoch": 2,
+      "mean_loss": 0.9784,
+      "quick_eval_accuracy": 97.48,
+      "seconds": 28
+    }
+  ],
+  "quick_eval_accuracy": 97.48,
+  "quick_eval_worst": [
+    "PermanentCrop",
+    95.2
+  ],
+  "unseen_80_accuracy": 97.25,
+  "unseen_80_images": 21600,
+  "unseen_80_per_class": {
+    "AnnualCrop": 97.37,
+    "Forest": 98.83,
+    "HerbaceousVegetation": 95.88,
+    "Highway": 93.95,
+    "Industrial": 99.85,
+    "Pasture": 97.19,
+    "PermanentCrop": 94.4,
+    "Residential": 97.46,
+    "River": 97.8,
+    "SeaLake": 99.25
+  },
+  "params_million": 1.8476,
+  "macs_giga": 0.2871,
+  "model_sha256": "a887e46aab464d47b8540eb8702a15994499326e4190c7736108df9ad25eedc8"
+}

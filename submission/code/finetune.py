@@ -93,6 +93,7 @@ def main():
     parser.add_argument("--probe", action="store_true", help="A6: time one epoch and exit without saving")
     parser.add_argument("--cache-teacher", action="store_true")
     parser.add_argument("--no-unseen", action="store_true", help="skip the unseen-80%% check (time pressure)")
+    parser.add_argument("--device", default="cpu", help="training device: cpu or mps (evaluation and saving stay on cpu)")
     args = parser.parse_args()
     if args.cache_teacher:
         cache_teacher_logits()
@@ -110,8 +111,9 @@ def main():
         teacher = torch.load(TEACHER_CACHE)
         assert teacher["indices"] == indices, "teacher cache was built for a different fine-tune subset"
     loader = DataLoader(WithPosition(indices), batch_size=args.batch_size, shuffle=True,
-                        generator=torch.Generator().manual_seed(0))
-    model = load_model(args.model)
+                        generator=torch.Generator().manual_seed(0), num_workers=4, persistent_workers=False)
+    device = torch.device(args.device)
+    model = load_model(args.model).to(device)
     epochs = 1 if args.probe else args.epochs
     optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, momentum=0.9, weight_decay=args.weight_decay)
     schedule = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs * len(loader), eta_min=0)
@@ -124,11 +126,12 @@ def main():
         model.train()
         start, running = time.perf_counter(), 0.0
         for x, y, pos in loader:
+            x, y = x.to(device), y.to(device)
             student_logits = model(x)
             loss = F.cross_entropy(student_logits, y)
             if teacher is not None:
                 distill = F.kl_div(F.log_softmax(student_logits / T, dim=1),
-                                   F.softmax(teacher["logits"][pos] / T, dim=1), reduction="batchmean") * T * T
+                                   F.softmax(teacher["logits"][pos].to(device) / T, dim=1), reduction="batchmean") * T * T
                 loss = (1 - alpha) * loss + alpha * distill
             optimizer.zero_grad()
             loss.backward()
@@ -139,13 +142,15 @@ def main():
         if args.probe:
             print(f"[probe] one epoch of {len(loader)} batches took {seconds}s ({len(indices) / seconds:.1f} images/s)")
             return
+        model.to("cpu")
         quick = evaluate(model)
+        model.to(device)
         history.append({"epoch": epoch, "mean_loss": round(running / len(loader), 4),
                         "quick_eval_accuracy": quick["accuracy"], "seconds": seconds})
         print(f"[{label}] epoch {epoch}: loss {running / len(loader):.3f}, quick-eval {quick['accuracy']:.2f}% "
               f"(worst {quick['worst_class']} {quick['worst_class_accuracy']:.1f}), {seconds}s")
 
-    model.eval()
+    model.to("cpu").eval()
     unseen = {"accuracy": None, "images": 0, "per_class_accuracy": None} if args.no_unseen else evaluate(model, unseen_file())
     quick = evaluate(model)
     params, macs = count(model)
@@ -159,7 +164,7 @@ def main():
         "source_config": str(source_config.relative_to(ROOT)) if source_config.exists() else None,
         "fine_tune": {"data": str(FINETUNE_SUBSET.relative_to(ROOT)), "images": len(indices), "augmentation": "none",
                       "optimizer": f"SGD momentum 0.9, lr {args.lr}, cosine to 0, weight decay {args.weight_decay}",
-                      "batch_size": args.batch_size, "epochs": epochs, "seed": 0,
+                      "batch_size": args.batch_size, "epochs": epochs, "seed": 0, "device": args.device,
                       "loss": "cross-entropy" if args.no_kd else f"(1-{alpha})*CE + {alpha}*T^2*KL, T={T}",
                       "teacher_cache": None if args.no_kd else str(TEACHER_CACHE.relative_to(ROOT))},
         "history": history,

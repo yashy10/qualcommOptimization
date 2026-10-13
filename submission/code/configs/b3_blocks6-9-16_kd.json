@@ -1,0 +1,36 @@
+{
+  "name": "b3_blocks6-9-16_kd",
+  "created_at": "2026-10-13T14:47:35",
+  "source_model": "models/stageA/a2_blocks3.pt",
+  "source_config": "configs/a2_blocks3.json",
+  "fine_tune": {
+    "data": "subsets/finetune_subset_20.json",
+    "images": 5400,
+    "augmentation": "none",
+    "optimizer": "SGD momentum 0.9, lr 0.005, cosine to 0, weight decay 4e-05",
+    "batch_size": 32,
+    "epochs": 1,
+    "seed": 0,
+    "loss": "(1-0.7)*CE + 0.7*T^2*KL, T=4.0",
+    "teacher_cache": "cache/teacher_logits_ft20.pt"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "mean_loss": 2.0828,
+      "quick_eval_accuracy": 96.0,
+      "seconds": 850
+    }
+  ],
+  "quick_eval_accuracy": 96.0,
+  "quick_eval_worst": [
+    "PermanentCrop",
+    87.2
+  ],
+  "unseen_80_accuracy": null,
+  "unseen_80_images": 0,
+  "unseen_80_per_class": null,
+  "params_million": 1.8476,
+  "macs_giga": 0.2871,
+  "model_sha256": "ffd92e6f490ed9859bb473798fbfef74f0c232852278850a14f38ce19e48f96c"
+}

@@ -27,130 +27,106 @@
 \newcommand{\code}[1]{\texttt{\small #1}}
 \begin{document}
 \begin{center}
-{\LARGE\bfseries\color{navy} Calibrated INT8 Quantization:\\[3pt] Efficient EuroSAT Inference with Minimal Accuracy Loss}\\[6pt]
-{\small Minimalist Edge AI Challenge\quad\textbullet\quad Software Track\quad\textbullet\quad 13 October 2026}
+{\LARGE\bfseries\color{navy} Prune, Recover, Quantize:\\[3pt] Compact MobileNetV2 for EuroSAT Classification}\\[6pt]
+{\small\textbf{Benson Edge}\quad\textbullet\quad Minimalist Edge AI Challenge\quad\textbullet\quad 13 October 2026}
 \end{center}
 \vspace{-5pt}
-\noindent\textbf{Abstract.} We optimize a supplied MobileNetV2 student for satellite land-use classification using static INT8 quantization. Per-channel weights and 99.99th-percentile calibration deliver our best verified accuracy--efficiency balance without retraining. The selected model, Q3a, retains 99.76\% of baseline accuracy and achieves a $4.29\times$ speedup in Qualcomm AI Hub's proxy-device profile. We select it over a smaller pruned model whose accuracy did not recover within the available training budget.
-
+\noindent\textbf{Abstract.} We compress the supplied distilled MobileNetV2 through residual-block removal, teacher-assisted recovery, and static INT8 quantization. The selected B3 model removes blocks 6, 9 and 16, recovers for three epochs at learning rate 0.001, then applies per-channel, 99.99-percentile quantization. It achieves 98.84\% accuracy on the 27,000-image competition evaluation at 2.052 MiB. Compared with our previous quantization-only reference, it is 17.6\% smaller with a 0.08-percentage-point accuracy tradeoff and improved worst-class accuracy. We distinguish measured accuracy and size from provisional local timing.
 \begin{center}
 \setlength{\fboxsep}{8pt}
-\colorbox{pale}{\begin{minipage}{0.955\textwidth}
-\centering\sffamily
+\colorbox{pale}{\begin{minipage}{0.955\textwidth}\centering\sffamily
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}cccc@{}}
-\textbf{\large\color{teal}98.92\%} & \textbf{\large\color{teal}70.7\% smaller} & \textbf{\large\color{teal}3.06$\times$ faster} & \textbf{\large\color{teal}67.7\% less energy}\\
-\small Overall accuracy & \small 8.506 $\to$ 2.491 MiB & \small 2.554 $\to$ 0.836 ms & \small CPU estimate per image
-\end{tabular*}
-\end{minipage}}
+\textbf{\large\color{teal}98.84\%} & \textbf{\large\color{teal}75.9\% smaller} & \textbf{\large\color{teal}17.4\% fewer} & \textbf{\large\color{teal}97.70\%}\\
+\small Overall accuracy & \small 8.506 $\to$ 2.052 MiB & \small ONNX parameters & \small Worst-class accuracy
+\end{tabular*}\end{minipage}}
 \end{center}
-\vspace{3pt}
-\begin{multicols}{2}
-\section{The task and our test setup}
-The supplied student classifies EuroSAT RGB imagery into ten land-use classes. We preserve the required FP32 input named \code{input}, shape $(1,3,224,224)$, and ten output scores. Images are resized to $224\times224$, converted to tensors, and normalized with the supplied ImageNet mean and standard deviation.
+\begin{multicols}{2}\raggedcolumns
+\section{Task and evaluation protocol}
+We classify EuroSAT RGB images into ten land-use classes. The model accepts FP32 input \code{input}, shape $(1,3,224,224)$, and returns ten scores. Preprocessing resizes images to 224, converts them to tensors, and applies ImageNet normalization. Export uses ONNX opset 13 with \code{dynamo=False}; inference uses ONNX Runtime 1.31.0 on CPU.
 
-Following the judge instruction recorded in the project, final accuracy is evaluated on all 27,000 images, including calibration images. Consequently, it is a full-dataset competition measurement, not an independent held-out generalization estimate. All baseline numbers here are our local measurements; organizer-provided \code{baseline\_metrics.json} was unavailable.
+Per the recorded judge instruction, reported competition accuracy covers all 27,000 images, including recovery and calibration samples. A separate 21,600-image evaluation excludes recovery-training images, but is not an independent test of the supplied pretrained checkpoint. Local baseline values are our measurements, not organizer reference figures.
 
-We export the unchanged checkpoint with ONNX opset 13 and \code{dynamo=False}, and use ONNX Runtime 1.31.0 with its CPU execution provider. Export-verification code compares real-image logits and predicted classes with PyTorch. Using ONNX for both baseline and final comparisons avoids attributing a runtime change to compression.
+\section{Compression pipeline and design choices}
+\noindent\textbf{Pipeline.} Supplied checkpoint $\rightarrow$ remove three residual blocks $\rightarrow$ adaptive BatchNorm $\rightarrow$ knowledge-distillation recovery $\rightarrow$ FP32 ONNX $\rightarrow$ graph preprocessing $\rightarrow$ recalibration $\rightarrow$ static INT8 QDQ.
 
+\noindent\textbf{Pruning exploration.} We screened 26 Stage A records on 2,700 fixed images, disjoint from the 5,400 recovery images (seed 0). Width sweeps used Torch-Pruning 1.6.1, magnitude importance, global/isomorphic or uniform channel selection, multiples of eight, and a protected classifier. At 10\% global width pruning, accuracy fell from 99.37\% to 77.19\% without recovery. Alternative BN-scale and Taylor criteria did not rescue the 30\% setting.
 
+Depth pruning was less damaging. Replacing residual blocks 6, 9 or 16 individually with Identity gave 98.96\%, 98.96\% and 98.93\%. Removing all three gave 97.56\%; four and five removals fell to 94.07\% and 91.07\%. Each candidate used adaptive BN (100 batches of 32). We selected the three-block structure; \textbf{the final model uses no width pruning}.
 
-Local measurements use an 11-core Apple M3 Pro, 18 GB RAM, mains power, batch one, and ONNX Runtime's default thread setting. The milestone alternates candidates over five rounds; each round uses ten warm-ups, 100 timed inferences, and a 15-second energy run. Table~\ref{tab:final} uses the median across rounds, with median inference latency within each round. RAM is sampled process RSS, not model storage.
-\section{How we chose the winning model}
-Our pipeline is checkpoint $\rightarrow$ FP32 ONNX $\rightarrow$ graph preprocessing $\rightarrow$ calibration $\rightarrow$ static INT8 QDQ $\rightarrow$ validation. Preprocessing performs shape inference and graph optimization before quantization. QDQ represents quantization explicitly with QuantizeLinear and DequantizeLinear nodes; static ranges are calibrated before deployment~\cite{ort}.
+\noindent\textbf{Recovery.} The initial one-epoch CPU attempt at learning rate 0.005 achieved only 96.52\% after INT8. The selected run restarts from the three-block pruned model and uses the recipe below. Both learning rate and duration changed, so their individual effects are not isolated.
+\begin{center}\begin{minipage}{\linewidth}\centering\small\setlength{\tabcolsep}{4pt}
+\captionof{table}{Selected recovery recipe: \texttt{b3\_kd\_lr001\_e3}.}
+\begin{tabular}{@{}ll@{}}\toprule
+\rowcolor{slate}\textbf{Setting} & \textbf{Value}\\\midrule
+Recovery data / seed & 5,400 images / 0\\
+Teacher / supervision & ResNet-50 / labels + cached logits\\
+Epochs / batch / augmentation & 3 / 32 / none\\
+SGD learning rate / schedule & 0.001 / cosine to zero\\
+Momentum / weight decay & 0.9 / $4\times10^{-5}$\\
+KD weight / temperature & $\alpha=0.7$ / $T=4$\\
+Training device & Apple M3 Pro GPU (MPS)\\
+Recorded epoch time & 31 + 28 + 28 = 87 seconds\\\bottomrule
+\end{tabular}\end{minipage}\end{center}
+The loss combines $0.3\,\mathrm{CE}$ with $0.7T^2$ times teacher-to-student KL divergence. Epoch times exclude setup and evaluation. Quick-eval accuracy progressed through 97.41\%, 99.26\% and 99.22\%; the submitted model uses epoch three. Its pre-quantization accuracy on the recovery-excluded 80\% was 98.75\%.
 
-The principal calibration set contains 300 fixed images, 30 per class, sampled with seed 42. We compare per-tensor and per-channel weight scales, signed/unsigned activation types, MinMax, entropy and percentile calibration, and selective FP32 retention. The selected Q3a configuration uses signed INT8 weights and activations (S8S8), per-channel weights, 99.99th-percentile calibration, and no excluded layers. No retraining is needed for this selected artifact.
-
-\begin{center}
-\captionof{table}{Quantization study on all 27,000 images. Size uses $2^{20}$ bytes (MiB).}
-\label{tab:ablation}
-\small\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}lrr@{}}
-\toprule
-\rowcolor{slate}\textbf{Configuration} & \textbf{Acc. (\%)} & \textbf{MiB}\\
-\midrule
-Original FP32 & 99.16 & 8.506\\
-Q0: per-tensor, MinMax, U8S8 & 96.32 & 2.277\\
-Q1: per-channel, MinMax, S8S8 & 98.09 & 2.491\\
-Q1b: Q1 with U8S8 & 98.09 & 2.491\\
-Q2: per-channel, entropy & 98.09 & 2.491\\
-\rowcolor{pale}\textbf{Q3a: percentile 99.99} & \textbf{98.92} & \textbf{2.491}\\
-Q3b: percentile 99.999 & 98.69 & 2.491\\
-Q4: Q3a, first/last layers FP32 & 98.86 & 2.528\\
-Q6: 100 / 1,000 calibration images & 98.83 / 98.90 & 2.491\\
-Q7: FP16 & 99.17 & 4.285\\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\noindent\textbf{Selection rationale.} Q1b versus Q0 isolates weight-scale granularity at U8S8 and improves accuracy by 1.77 percentage points. Q3a then gains 0.83 points over per-channel MinMax. Increasing the percentile to 99.999 retains more extreme values but performs worse here. Protecting the first and last layers also fails to improve accuracy. The 100- and 1,000-image checks remain within 0.09 points of the 300-image result; this supports that choice in this experiment, without establishing general convergence.
-
-Q3a meets our targets of at least 98.9\% overall accuracy, about 95\% on PermanentCrop, and at most 2.5 MiB. FP16 preserves accuracy but is larger and slightly slower than FP32 in our repeated CPU benchmark (2.708 versus 2.554 ms). Cross-layer equalization~\cite{dfq}, adaptive rounding and quantization-aware training were considered but are not claimed as completed experiments.
+\noindent\textbf{Quantization.} We run \code{quant\_pre\_process}, then static QDQ with signed INT8 weights and activations (S8S8), per-channel weight scales, percentile 99.99, and no excluded layers. Activation ranges are recalibrated on the recovered model using 300 fixed images (30/class, seed 42), rather than reused from the unpruned model~\cite{ort}.
+\begin{center}\begin{minipage}{\linewidth}\centering\small\setlength{\tabcolsep}{4pt}
+\captionof{table}{Calibration study on the unpruned model.}
+\begin{tabular}{@{}lrr@{}}\toprule
+\rowcolor{slate}\textbf{Configuration} & \textbf{Acc. \%} & \textbf{MiB}\\\midrule
+Per-tensor MinMax, U8S8 & 96.32 & 2.277\\
+Per-channel MinMax, U8S8 / S8S8 & 98.09 & 2.491\\
+Per-channel entropy & 98.09 & 2.491\\
+\rowcolor{pale}Q3a: percentile 99.99 & 98.92 & 2.491\\
+Percentile 99.999 & 98.69 & 2.491\\
+Q3a, first/last layers FP32 & 98.86 & 2.528\\
+FP16 & 99.17 & 4.285\\\bottomrule
+\end{tabular}\end{minipage}\end{center}
+Per-channel scales gained 1.77 points at fixed U8S8; percentile calibration gained a further 0.83 points over per-channel MinMax. Calibration with 100 or 1,000 images scored 98.83\% or 98.90\%. These experiments motivated the 300-image percentile recipe reused after pruning.
 \end{multicols}
 \newpage
 \begin{center}
 \includegraphics[width=\textwidth]{tradeoff.pdf}
 \vspace{-9pt}
-\captionof{figure}{Quantization tradeoffs on all 27,000 EuroSAT images. (a) Accuracy versus storage for representative candidates; the line joins selected tradeoff points. (b) The three finalists measured in the same five-round local benchmark. Q3a is highlighted: 98.92\% accuracy at 2.491 MiB and 0.836 ms per image.}
-\end{center}
-\vspace{-7pt}
-\begin{multicols}{2}
-\section{What the winning model achieved}
-\begin{center}
-\begin{minipage}{\linewidth}
-\centering
-\captionof{table}{Selected model versus identical-runtime baseline.}
-\label{tab:final}
-\small\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}lrr@{}}
-\toprule
-\rowcolor{slate}\textbf{Metric} & \textbf{FP32} & \textbf{Q3a INT8}\\
-\midrule
-\rowcolor{pale}Overall accuracy (\%) & 99.16 & 98.92\\
-Worst class: PermanentCrop (\%) & 95.84 & 95.24\\
-\rowcolor{pale}File size (MiB) & 8.506 & 2.491\\
-Parameters (M) / MACs (G) & 2.220 / 0.2995 & same\\
-\rowcolor{pale}Local median latency (ms) & 2.554 & 0.836\\
-Local peak RSS (MiB) & 87.91 & 76.86\\
-\rowcolor{pale}Estimated energy (J/image) & 0.05993 & 0.01938\\
-AI Hub estimated latency (ms) & 26.690 & 6.225\\
-AI Hub estimated peak (MiB) & 28.10 & 29.35\\
-\bottomrule
-\end{tabular}
-\end{minipage}
-\end{center}
+\captionof{figure}{Full-dataset accuracy versus model size (left), and per-class accuracy for the FP32 baseline and selected B3 INT8 (right). Pruning plus recovery changes the class tradeoff: PermanentCrop improves, while several other classes decline.}
+\end{center}\vspace{-7pt}
+\begin{multicols}{2}\raggedcolumns
+\section{Final results and tradeoffs}
+\begin{center}\begin{minipage}{\linewidth}\centering
+\captionof{table}{Submission versus FP32 and prior Q3a reference.}
+\label{tab:final}\small\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrr@{}}\toprule
+\rowcolor{slate}\textbf{Metric} & \textbf{FP32} & \textbf{Q3a} & \textbf{B3 INT8}\\\midrule
+\rowcolor{pale}Overall accuracy (\%) & 99.16 & 98.92 & 98.84\\
+Worst-class accuracy (\%) & 95.84 & 95.24 & 97.70\\
+\rowcolor{pale}File size (MiB) & 8.506 & 2.491 & 2.052\\
+ONNX parameters (M) & 2.2196 & 2.2196 & 1.8338\\
+\rowcolor{pale}ONNX MACs (G) & 0.2995 & 0.2995 & 0.2627\\
+Median latency (ms) & 2.554 & 0.836 & 1.110*\\
+Peak process RSS (MiB) & 87.91 & 76.86 & 77.11*\\
+Estimated energy (J) & 0.05993 & 0.01938 & 0.04989*\\\bottomrule
+\end{tabular}\par\vspace{3pt}\raggedright\footnotesize
+*B3 local timing is provisional; FP32/Q3a use the earlier five-round milestone. These are not matched-session speed comparisons.\end{minipage}\end{center}
 
-Q3a reduces storage by 70.7\% ($3.41\times$ smaller) and median local latency by 67.3\% ($3.06\times$ faster), while losing only 0.24 percentage points of accuracy. It retains 99.76\% of baseline accuracy; no class loses more than 0.95 points. Local peak RSS falls 12.6\%. Parameters and MACs remain unchanged: these gains come from lower-precision representation and execution, not structural removal. Estimated energy falls 67.7\%; CodeCarbon uses a CPU-load/TDP estimate rather than power sensors, with variation across rounds.
+The selected model is $4.15\times$ smaller than FP32, with 17.4\% fewer parameters and 12.3\% fewer MACs. Overall accuracy drops 0.32 percentage points. Against Q3a, it saves another 17.6\% of storage for 0.08 points of accuracy. Its weakest class is Pasture (97.70\%); PermanentCrop improves from 95.84\% in FP32 to 98.20\%. Compared with FP32, Highway and Residential fall by 1.64 and 1.43 points, respectively. Thus the gain in worst-class accuracy does not mean every class improves.
 
-\noindent\textbf{Device choice.} We used the Dragonwing RB3 Gen 2 Vision Kit (QCS6490, Qualcomm Linux 1.6). The project catalog check found no UNO Q / QRB2210 profile and selected this lower-tier listed Linux IoT alternative. Both saved ONNX profiles execute entirely on CPU. AI Hub estimates a $4.29\times$ speedup, while peak memory rises 4.5\%. These are proxy-device results, not UNO Q measurements or evidence of NPU acceleration.
+The recovered FP32 and INT8 models both score 98.84\% overall at reported precision. Quantization reduces the recovered model from 7.028 to 2.052 MiB with no rounded overall-accuracy loss. Selection favors the smaller, more balanced model despite being 0.06 points below the original 98.9\% planning target; this tradeoff is explicit.
 
-\section{Pruning + INT8: lessons for next time}
-We removed blocks 6, 9 and 16, trained for one epoch with teacher distillation on 5,400 images, and recalibrated INT8. The extra compression cost too much accuracy:
-\begin{center}
-\begin{minipage}{\linewidth}
-\centering\small\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}lrr@{}}
-\toprule
-\rowcolor{slate}\textbf{Comparison} & \textbf{Q3a (chosen)} & \textbf{Pruned + INT8}\\
-\midrule
-Accuracy (\%) & 98.92 & 96.52\\
-PermanentCrop (\%) & 95.24 & 89.28\\
-Model size (MiB) & 2.491 & 2.052\\
-\bottomrule
-\end{tabular}
-\end{minipage}
-\end{center}
-\noindent\textbf{What went wrong.} One recovery epoch did not repair the pruning damage: on the same 2,700-image subset, accuracy fell from 97.56\% after pruning/BN adjustment to 96.00\% after training. Full-dataset accuracy was 96.49\% before INT8 and 96.52\% after it, placing the observed deficit before quantization. One epoch consumed 850 seconds (14.2 minutes). We lacked time to tune the learning rate, compare teacher-assisted versus label-only recovery, or complete the separate evaluation excluding fine-tuning images. These results do not establish whether longer recovery would succeed.
+\noindent\textbf{Local measurement limits.} Inference uses an 11-core M3 Pro with 18 GB RAM, batch one, and default ORT threads. The selected run used ten warm-ups and 100 timed inferences; background CPU was 48.4\%. A new five-round benchmark refused to start at 43\% CPU on battery. We therefore do not claim a verified local speedup over Q3a. Energy is a CodeCarbon CPU-load/TDP estimate over 15 seconds, not a power-sensor measurement.
 
-\noindent\textbf{Next steps.} Start with fewer removed blocks or milder channel cuts; compare lower learning rates and longer recovery schedules, saving the best validation checkpoint. Test distillation against label-only training, then recalibrate and quantize only recovered candidates. Reserve time for disjoint evaluation and repeated latency/energy measurements. Q3a remains the verified reference to beat.
+\columnbreak
+\section{Qualcomm device profile}
+We use the Dragonwing RB3 Gen 2 Vision Kit (QCS6490, Qualcomm Linux 1.6), selected after the project's catalog check found no UNO Q / QRB2210 profile. This is a listed Linux IoT proxy, not measured UNO Q performance. A new profile of the selected B3 reports \textbf{5.523 ms}, versus 26.690 ms for FP32 (4.83$\times$). Estimated peak memory is 27.06 MiB versus 28.10 MiB for FP32. Both profiles execute on CPU; no NPU acceleration is claimed. Compile/profile IDs are \code{jgn1kl6vp}/\code{jp2oe0kxg}. The older Q3a profile is retained only as a separate reference.
 
-\section{Reproducibility and conclusion}
-The selected \code{student\_model\_int8.onnx} matches Q3a's SHA-256 (prefix \code{3335203487330816}). Rebuild from the supplied checkpoint with \code{export\_onnx.py}, then \code{quantize.py} using \code{--per-channel}, \code{--calib-method percentile}, \code{--percentile 99.99}, and \code{--types s8s8}. Fixed calibration indices and saved settings identify the exact inputs. Use \code{check\_quant.py}, \code{measure.py}, and \code{timing.py} for validation; pruning configurations are saved separately. AI Hub profile IDs are \code{jgk68x4n5} (FP32) and \code{j5wy46y4g} (INT8). For this task and budget, per-channel percentile-calibrated INT8 provides our best verified balance of accuracy, storage and deployment efficiency. The more aggressive pruning extension is retained as evidence for future recovery experiments, rather than selected for submission.
+\section{Lessons and reproducibility}
+The first recovery attempt showed that removing blocks alone was insufficient. The later three-epoch, lower-learning-rate run substantially recovered accuracy, and MPS reduced recorded training-loop time to 87 seconds. This is evidence for the combined recipe, not proof that either change alone caused the improvement. Width pruning, teacher-versus-label-only recovery, quantization-aware training and best-epoch selection remain opportunities for further controlled study.
 
+The submitted ONNX file is byte-identical to the selected three-epoch B3 artifact, SHA-256 prefix \code{e80fd982b0ab1c8f}. Its graph has 43 convolutions and seven residual additions (versus 52 and ten before pruning), with 54 QuantizeLinear and 142 DequantizeLinear nodes. The saved checks confirm the required input/output shapes and absence of dynamic-quantization operators.
+
+The source bundle includes fixed subset indices, pruning and recovery configurations, training/export code, quantization settings and raw results. Run \code{reproduce\_selected.sh} in a fresh workspace with the supplied student/teacher checkpoints and EuroSAT data; it performs pruning, teacher caching, recovery, export and quantization. The original run used MPS; CPU reproduction may differ numerically. \code{metrics.json} records the complete model hash and measurement provenance. The 98.75\% recovery-excluded score belongs to the FP32 recovered model; no separate INT8 score on that subset is claimed.
 \vspace{-3pt}
-\begin{thebibliography}{2}\small
-\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+\begin{thebibliography}{1}\small\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
 \bibitem{ort} ONNX Runtime. \href{https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html}{\emph{Quantize ONNX models}}. Documentation, accessed October 2026.
-\bibitem{dfq} M. Nagel et al. \href{https://openaccess.thecvf.com/content_ICCV_2019/html/Nagel_Data-Free_Quantization_Through_Weight_Equalization_and_Bias_Correction_ICCV_2019_paper.html}{Data-Free Quantization Through Weight Equalization and Bias Correction}. \emph{ICCV}, 2019, pp. 1325--1334.
 \end{thebibliography}
 \end{multicols}
 \input{dashboard_appendix.tex}

@@ -1,5 +1,20 @@
 # Quantization knowledge transfer
 
+## Final selection update — Benson Edge
+
+Selected run: `b3_kd_lr001_e3_int8`. Remove residual blocks 6, 9 and 16;
+recover on 5,400 images for three epochs with KD, lr 0.001, batch 32,
+alpha 0.7, temperature 4, seed 0, and MPS; then recalibrate static
+per-channel S8S8 QDQ with percentile 99.99 on the fixed 300 images.
+Full-dataset accuracy is 98.84%, worst class Pasture 97.70%, size 2.052 MiB.
+The user selected this over Q3a for the smaller size and improved worst-class
+accuracy despite the 0.08-point overall-accuracy tradeoff (and 0.06 points
+below the original 98.9% planning target). Local timing is provisional.
+A dedicated RB3 Gen 2 AI Hub profile reports 5.523 ms, 4.83x faster than the
+recorded FP32 profile; job `jp2oe0kxg`. Earlier plans/results below remain
+historical context, not the final submission selection.
+
+
 ## 1. The goal in one sentence
 
 Convert the MobileNetV2 from 32-bit floats to 8-bit integers so the file is about 4x smaller and inference is cheaper, while losing no more than about 0.3 points of accuracy, and prove it with measurements.

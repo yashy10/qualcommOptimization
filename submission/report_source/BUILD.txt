@@ -1,18 +1,24 @@
-Build the three-page report (two-page paper plus dashboard appendix):
+Benson Edge: depth-pruned, three-epoch recovered, INT8 MobileNetV2.
+Selected run: b3_kd_lr001_e3_int8.
 
+Build from this source folder:
   pdflatex -interaction=nonstopmode -halt-on-error technical_report.tex
   pdflatex -interaction=nonstopmode -halt-on-error technical_report.tex
+  pdflatex -interaction=nonstopmode -halt-on-error technical_report_2page.tex
+  pdflatex -interaction=nonstopmode -halt-on-error technical_report_2page.tex
 
-Keep tradeoff.pdf and dashboard_appendix.tex beside the main .tex file.
-The existing two-page version can be rebuilt using technical_report_2page.tex.
+technical_report.tex includes the third-page dashboard appendix.
+technical_report_2page.tex omits that appendix for the original two-page limit.
+Keep tradeoff.pdf and dashboard_appendix.tex beside the main .tex files.
 
-The appendix is generated from results JSON and mirrors dashboard milestone
-timing substitutions. It includes 14 full-dataset runs and 26 Stage A runs.
-To refresh from the repository, run from submission/report_source:
-
+To refresh figures/tables from the repository results, from this folder:
+  python3 generate_tradeoff.py --results ../../results
   python3 generate_dashboard_appendix.py --results ../../results
+The figure generator needs matplotlib. Both generators default to ../results
+when rebuilding from the submission folder. Static figure/table files are
+included, so building the PDFs alone does not need Python or experiment data.
 
-Recompile the report afterward. To build the existing PDF from this source
-bundle alone, the included appendix is sufficient; no experiment data is needed.
-
-Q3a is the selected model. B3 timing is provisional. Sizes use MiB (2^20 bytes).
+The appendix contains 16 full-dataset and 26 Stage A records. B3 three-epoch
+INT8 is selected; Q3a and one-epoch B3 are historical comparisons. Final local
+timing is provisional. Sizes use MiB (2^20 bytes). See metrics.json for timing
+and AI Hub profile provenance. Recovery-excluded accuracy is FP32 only.

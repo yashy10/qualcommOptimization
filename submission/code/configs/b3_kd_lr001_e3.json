@@ -1,0 +1,60 @@
+{
+  "name": "b3_kd_lr001_e3",
+  "created_at": "2026-10-13T16:02:05",
+  "source_model": "models/stageA/a2_blocks3.pt",
+  "source_config": "configs/a2_blocks3.json",
+  "fine_tune": {
+    "data": "subsets/finetune_subset_20.json",
+    "images": 5400,
+    "augmentation": "none",
+    "optimizer": "SGD momentum 0.9, lr 0.001, cosine to 0, weight decay 4e-05",
+    "batch_size": 32,
+    "epochs": 3,
+    "seed": 0,
+    "device": "mps",
+    "loss": "(1-0.7)*CE + 0.7*T^2*KL, T=4.0",
+    "teacher_cache": "cache/teacher_logits_ft20.pt"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "mean_loss": 1.0468,
+      "quick_eval_accuracy": 97.41,
+      "seconds": 31
+    },
+    {
+      "epoch": 2,
+      "mean_loss": 0.6334,
+      "quick_eval_accuracy": 99.26,
+      "seconds": 28
+    },
+    {
+      "epoch": 3,
+      "mean_loss": 0.4697,
+      "quick_eval_accuracy": 99.22,
+      "seconds": 28
+    }
+  ],
+  "quick_eval_accuracy": 99.22,
+  "quick_eval_worst": [
+    "Highway",
+    98.0
+  ],
+  "unseen_80_accuracy": 98.75,
+  "unseen_80_images": 21600,
+  "unseen_80_per_class": {
+    "AnnualCrop": 99.0,
+    "Forest": 99.54,
+    "HerbaceousVegetation": 98.62,
+    "Highway": 98.0,
+    "Industrial": 99.7,
+    "Pasture": 97.56,
+    "PermanentCrop": 98.05,
+    "Residential": 97.83,
+    "River": 98.95,
+    "SeaLake": 99.79
+  },
+  "params_million": 1.8476,
+  "macs_giga": 0.2871,
+  "model_sha256": "92cf0aa09fdf9c6fb6a60b307774baca5bb869f1c0aad56e817820cf42386a86"
+}

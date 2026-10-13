@@ -1,5 +1,5 @@
 {
-  "team_name": "REPLACE_ME",
+  "team_name": "Benson Edge",
   "baseline": {
     "accuracy": 0.9916,
     "params_million": 2.2196,
@@ -7,43 +7,47 @@
     "macs_giga": 0.2995,
     "latency_ms": 2.554,
     "peak_ram_mb": 87.91,
-    "joules_per_inference": 0.0599
+    "joules_per_inference": 0.05993
   },
   "final": {
-    "accuracy": 0.9892,
-    "params_million": 2.2196,
-    "size_mb": 2.491,
-    "macs_giga": 0.2995,
-    "latency_ms": 0.836,
-    "peak_ram_mb": 76.86,
-    "joules_per_inference": 0.0194
+    "accuracy": 0.9884,
+    "params_million": 1.8338,
+    "size_mb": 2.052,
+    "macs_giga": 0.2627,
+    "latency_ms": 1.11,
+    "peak_ram_mb": 77.11,
+    "joules_per_inference": 0.04989
   },
-  "worst_class_accuracy": 0.9524,
-  "worst_class": "PermanentCrop",
+  "worst_class_accuracy": 0.977,
+  "worst_class": "Pasture",
   "per_class_accuracy": {
-    "AnnualCrop": 0.9817,
-    "Forest": 0.9987,
-    "HerbaceousVegetation": 0.9883,
-    "Highway": 0.9968,
-    "Industrial": 0.9992,
-    "Pasture": 0.983,
-    "PermanentCrop": 0.9524,
-    "Residential": 0.9973,
-    "River": 0.9916,
-    "SeaLake": 0.9983
+    "AnnualCrop": 0.9903,
+    "Forest": 0.996,
+    "HerbaceousVegetation": 0.9857,
+    "Highway": 0.9812,
+    "Industrial": 0.9972,
+    "Pasture": 0.977,
+    "PermanentCrop": 0.982,
+    "Residential": 0.983,
+    "River": 0.9908,
+    "SeaLake": 0.9963
   },
   "codecarbon_mode": "tdp_estimate",
   "techniques_applied": [
-    "quant_pre_process (BatchNorm folding, shape inference)",
-    "static post-training quantization, QDQ format, per-channel symmetric int8 weights, asymmetric int8 activations (S8S8)",
-    "Percentile 99.99 calibration on 300 fixed, class-balanced images (subsets/calibration_indices_300_seed42.json)"
+    "Structured depth pruning: replace MobileNetV2 residual blocks 6, 9, 16 with Identity; no width pruning in selected model",
+    "Adaptive BatchNorm: 100 batches of 32 from fixed seed-0 fine-tuning subset",
+    "Knowledge distillation from ResNet-50 on 5400 images: 3 epochs, SGD lr 0.001, momentum 0.9, cosine decay, weight decay 4e-5, batch 32, alpha 0.7, temperature 4, seed 0; training on MPS",
+    "ONNX opset 13 export; quant_pre_process before static quantization",
+    "Static QDQ INT8, per-channel weights, S8S8, Percentile 99.99 recalibration on 300 fixed class-balanced images, seed 42"
   ],
   "ratios_vs_baseline": {
-    "accuracy_retained": 0.9976,
-    "size": 3.41,
-    "latency": 3.06,
+    "accuracy_retained": 0.9968,
+    "size": 4.15,
+    "params": 1.21,
+    "macs": 1.14,
+    "latency": 2.3,
     "peak_ram": 1.14,
-    "energy": 3.09
+    "energy": 1.2
   },
   "ai_hub_profile_summary": {
     "device": "Dragonwing RB3 Gen 2 Vision Kit (QCS6490), closest listed low-power Qualcomm IoT device to the Arduino UNO Q",
@@ -56,17 +60,43 @@
         "jgk68x4n5"
       ]
     },
-    "final_int8": {
+    "previous_q3a_reference": {
       "estimated_inference_ms": 6.225,
       "peak_memory_mb": 29.4,
       "jobs": [
         "jgd6216zp",
         "j5wy46y4g"
-      ]
+      ],
+      "speedup_vs_baseline": 4.29
     },
-    "speedup": 4.29
+    "final_int8": {
+      "status": "SUCCESS",
+      "estimated_inference_ms": 5.523,
+      "peak_memory_mb": 27.059,
+      "jobs": [
+        "jgn1kl6vp",
+        "jp2oe0kxg"
+      ],
+      "model_sha256": "e80fd982b0ab1c8fa4bba0626b568bfa8d804c559b2629beb684a347295c886a",
+      "compute_units": [
+        "CPU"
+      ],
+      "profile_source": "results/aihub_profiles/b3_kd_lr001_e3_int8_jp2oe0kxg.json"
+    },
+    "speedup": 4.83
   },
-  "measurement_machine": "Apple M3 Pro, 11 cores, 18 GB RAM, Darwin 25.4.0, CPU only; milestone timing = median of 5 alternating rounds, clean session, mains power",
-  "evaluation_data": "all 27,000 EuroSAT images (judge instruction, no val_split)",
-  "model_file": "student_model_int8.onnx (= models/q3a_perchannel_pct9999_s8s8.onnx, sha256 33352034873308162e8c04e92276f2485808cadf44f920636b08878577771f36)"
+  "measurement_machine": "Apple M3 Pro, 11 cores, 18 GB RAM, Darwin 25.4.0, CPU only; inference on CPU, recovery training on MPS",
+  "evaluation_data": "All 27000 EuroSAT images, including fine-tuning and calibration samples, per recorded judge instruction",
+  "model_file": "student_model_int8.onnx",
+  "selected_run": "b3_kd_lr001_e3_int8",
+  "timing_status": "provisional for final; baseline uses five-round milestone from 2026-10-13T12:33:09",
+  "timing_notes": "Final local timings are a single session at 48.4% background CPU, mains power. A new clean benchmark was refused at 43% CPU on battery. Latency/RAM/energy ratios are provisional cross-session comparisons, not verified paired speedups.",
+  "recovery_validation": {
+    "model_stage": "Recovered FP32 PyTorch model, before INT8 conversion",
+    "unseen_80_accuracy": 0.9875,
+    "unseen_80_images": 21600,
+    "note": "Excludes recovery-training images; not a new independent test set for the supplied pretrained checkpoint. No separate INT8 unseen-80 evaluation was recorded."
+  },
+  "source_model": "models/stageC/b3_kd_lr001_e3_int8.onnx",
+  "model_sha256": "e80fd982b0ab1c8fa4bba0626b568bfa8d804c559b2629beb684a347295c886a"
 }

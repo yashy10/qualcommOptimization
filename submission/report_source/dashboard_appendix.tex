@@ -18,19 +18,21 @@ Q0 & 96.32 & 88.13 & 2.220 & 0.2995 & 2.277 & 0.905 & 75.56 & 0.02251 & P\\
 Q1 & 98.09 & 95.45 & 2.220 & 0.2995 & 2.491 & 0.824 & 76.42 & 0.01843 & P\\
 Q1b & 98.09 & 95.45 & 2.220 & 0.2995 & 2.491 & 0.928 & 76.42 & 0.05401 & P\\
 Q2 & 98.09 & 95.45 & 2.220 & 0.2995 & 2.491 & 0.835 & 77.17 & 0.02076 & P\\
-\rowcolor{pale}\textbf{Q3a (selected)} & \textbf{98.92} & \textbf{95.24} & \textbf{2.220} & \textbf{0.2995} & \textbf{2.491} & \textbf{0.836} & \textbf{76.86} & \textbf{0.01938} & \textbf{M}\\
+Q3a: quant-only & 98.92 & 95.24 & 2.220 & 0.2995 & 2.491 & 0.836 & 76.86 & 0.01938 & M\\
 Q3b & 98.69 & 95.92 & 2.220 & 0.2995 & 2.491 & 0.836 & 77.08 & 0.01809 & P\\
 Q4 & 98.86 & 94.88 & 2.220 & 0.2995 & 2.528 & 1.056 & 77.84 & 0.02448 & P\\
 Q6a: 100 images & 98.83 & 94.72 & 2.220 & 0.2995 & 2.491 & 0.912 & 77.16 & 0.11928 & P\\
 Q6b: 1,000 images & 98.90 & 94.96 & 2.220 & 0.2995 & 2.491 & 0.838 & 78.52 & 0.03317 & P\\
 Q7: FP16 & 99.17 & 95.88 & 2.220 & 0.2995 & 4.285 & 2.708 & 89.33 & 0.06280 & M\\
-B3: pruned FP32 & 96.49 & 88.52 & 1.834 & 0.2627 & 7.028 & 2.263 & 83.25 & 0.06386 & P\\
-B3: pruned INT8 & 96.52 & 89.28 & 1.834 & 0.2627 & 2.052 & 0.740 & 75.22 & 0.01599 & P\\
+B3: 1-epoch FP32 & 96.49 & 88.52 & 1.834 & 0.2627 & 7.028 & 2.263 & 83.25 & 0.06386 & P\\
+B3: 1-epoch INT8 & 96.52 & 89.28 & 1.834 & 0.2627 & 2.052 & 0.740 & 75.22 & 0.01599 & P\\
+B3: 3-epoch FP32 & 98.84 & 97.60 & 1.834 & 0.2627 & 7.028 & 2.302 & 84.27 & 0.06285 & P\\
+\rowcolor{pale}\textbf{B3: 3-epoch INT8 (selected)} & \textbf{98.84} & \textbf{97.70} & \textbf{1.834} & \textbf{0.2627} & \textbf{2.052} & \textbf{1.110} & \textbf{77.11} & \textbf{0.04989} & \textbf{P}\\
 \bottomrule
 \end{tabular*}
 \end{center}
 \vspace{-4pt}
-\noindent\footnotesize\textbf{Reading the table.} M = median of five milestone rounds; P = provisional single-session measurement; S = single-session reference. Latency is the median within a round. All energy values are CodeCarbon estimates; unusually high provisional values should not be treated as settled comparisons. Worst class is Forest for Q0, Pasture for Q1/Q1b/Q2, and PermanentCrop otherwise. ONNX and PyTorch counts/runtime overhead differ; compare within the same runtime. Q0--Q7 settings are defined in Table 1; B3 removes blocks 6, 9 and 16 and adds one recovery epoch.
+\noindent\footnotesize\textbf{Reading the table.} M = median of five milestone rounds; P = provisional single-session measurement; S = single-session reference. Latency is the median within a round. All energy values are CodeCarbon estimates; unusually high provisional values should not be treated as settled comparisons. Worst class is Forest for Q0, Pasture for Q1/Q1b/Q2 and the three-epoch B3 runs, and PermanentCrop otherwise. ONNX and PyTorch counts/runtime overhead differ; compare within the same runtime. Q0--Q7 are quantization-only variants. B3 removes blocks 6, 9 and 16; the selected run uses three recovery epochs at learning rate 0.001. Its local timing remains provisional.
 \vspace{8pt}
 
 \noindent\small\textbf{A2. Pruning exploration: 2,700-image quick evaluation, before recovery training}
@@ -78,7 +80,7 @@ Uniform 40\% & 21.37 & 0.00 & 0.810 & 0.1144 & 3.089\\
 
 \vspace{5pt}\textbf{Width settings.} Global and uniform sweeps use magnitude importance. The requested percentage is a channel-pruning setting, not a percentage of total weights. BN-scale and Taylor are alternative importance criteria at 30\%.
 
-\vspace{5pt}\textbf{Why Q3a was selected.} It satisfies the accuracy and storage targets without recovery training. The smaller B3 INT8 candidate loses 2.40 accuracy points and misses the worst-class target.
+\vspace{5pt}\textbf{Why B3 was selected.} Three-epoch recovery raises INT8 accuracy to 98.84\%. It is 17.6\% smaller than Q3a for a 0.08-point overall-accuracy tradeoff, with a 97.70\% worst-class score. The one-epoch attempt is retained as historical evidence.
 \end{minipage}
 \par\vspace{8pt}
 \noindent\footnotesize\textbf{Source and precision.} A1 uses \code{results/*.json}, replacing timing fields with \code{milestone\_timing} when present, as the dashboard does. A2 uses \code{results/stageA/*.json}. Figures are rounded only for display; the saved JSON records retain the measurement precision. M = million parameters; G = billion multiply--accumulate operations; MiB = $2^{20}$ bytes.

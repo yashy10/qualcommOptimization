@@ -12,7 +12,7 @@ parser.add_argument('--results',type=Path,default=Path(__file__).resolve().paren
 parser.add_argument('--output',type=Path,default=Path(__file__).with_name('dashboard_appendix.tex'))
 a=parser.parse_args()
 read=lambda name: json.loads((a.results/(name+'.json')).read_text())
-runs=[('official_baseline_onnx_fp32','FP32 ONNX'),('official_baseline_pytorch','FP32 PyTorch'),('q0_pertensor_minmax_u8s8','Q0'),('q1_perchannel_minmax_s8s8','Q1'),('q1b_perchannel_minmax_u8s8','Q1b'),('q2_perchannel_entropy_s8s8','Q2'),('q3a_perchannel_pct9999_s8s8','Q3a (selected)'),('q3b_perchannel_pct99999_s8s8','Q3b'),('q4_q3a_firstlast_fp32','Q4'),('q6a_q3a_calib100','Q6a: 100 images'),('q6b_q3a_calib1000','Q6b: 1,000 images'),('q7_fp16','Q7: FP16'),('b3_blocks6-9-16_kd_fp32','B3: pruned FP32'),('b3_blocks6-9-16_kd_int8','B3: pruned INT8')]
+runs=[('official_baseline_onnx_fp32','FP32 ONNX'),('official_baseline_pytorch','FP32 PyTorch'),('q0_pertensor_minmax_u8s8','Q0'),('q1_perchannel_minmax_s8s8','Q1'),('q1b_perchannel_minmax_u8s8','Q1b'),('q2_perchannel_entropy_s8s8','Q2'),('q3a_perchannel_pct9999_s8s8','Q3a: quant-only'),('q3b_perchannel_pct99999_s8s8','Q3b'),('q4_q3a_firstlast_fp32','Q4'),('q6a_q3a_calib100','Q6a: 100 images'),('q6b_q3a_calib1000','Q6b: 1,000 images'),('q7_fp16','Q7: FP16'),('b3_blocks6-9-16_kd_fp32','B3: 1-epoch FP32'),('b3_blocks6-9-16_kd_int8','B3: 1-epoch INT8'),('b3_kd_lr001_e3_fp32','B3: 3-epoch FP32'),('b3_kd_lr001_e3_int8','B3: 3-epoch INT8 (selected)')]
 lines=[r'''\clearpage
 \section*{Appendix A. Dashboard data at a glance}
 \noindent\small Recorded experiments from 13 October 2026. Values below come directly from the JSON files behind the dashboard; archived and smoke-test runs are excluded. Teal highlights the submitted model. The first two pages remain the main technical report.
@@ -31,13 +31,13 @@ for name,label in runs:
  d=read(name);t=d.get('milestone_timing',d);basis='M' if 'milestone_timing' in d else 'P' if d.get('timing_status')=='provisional' else 'S'
  row=[label,f"{d['accuracy']:.2f}",f"{d['worst_class_accuracy']:.2f}",f"{d['params_million']:.3f}",f"{d['macs_giga']:.4f}",f"{d['size_mb']:.3f}",f"{t['latency_median_ms']:.3f}",f"{t['peak_ram_mb']:.2f}",f"{t['joules_per_inference']:.5f}",basis]
  prefix=''
- if name.startswith('q3a_'):prefix=r'\rowcolor{pale}';row=[r'\textbf{'+v+'}' for v in row]
+ if name=='b3_kd_lr001_e3_int8':prefix=r'\rowcolor{pale}';row=[r'\textbf{'+v+'}' for v in row]
  lines.append(prefix+' & '.join(row)+r'\\')
 lines.append(r'''\bottomrule
 \end{tabular*}
 \end{center}
 \vspace{-4pt}
-\noindent\footnotesize\textbf{Reading the table.} M = median of five milestone rounds; P = provisional single-session measurement; S = single-session reference. Latency is the median within a round. All energy values are CodeCarbon estimates; unusually high provisional values should not be treated as settled comparisons. Worst class is Forest for Q0, Pasture for Q1/Q1b/Q2, and PermanentCrop otherwise. ONNX and PyTorch counts/runtime overhead differ; compare within the same runtime. Q0--Q7 settings are defined in Table 1; B3 removes blocks 6, 9 and 16 and adds one recovery epoch.
+\noindent\footnotesize\textbf{Reading the table.} M = median of five milestone rounds; P = provisional single-session measurement; S = single-session reference. Latency is the median within a round. All energy values are CodeCarbon estimates; unusually high provisional values should not be treated as settled comparisons. Worst class is Forest for Q0, Pasture for Q1/Q1b/Q2 and the three-epoch B3 runs, and PermanentCrop otherwise. ONNX and PyTorch counts/runtime overhead differ; compare within the same runtime. Q0--Q7 are quantization-only variants. B3 removes blocks 6, 9 and 16; the selected run uses three recovery epochs at learning rate 0.001. Its local timing remains provisional.
 \vspace{8pt}
 
 \noindent\small\textbf{A2. Pruning exploration: 2,700-image quick evaluation, before recovery training}
@@ -61,7 +61,7 @@ for idx,group in enumerate([left,right]):
 
 \vspace{5pt}\textbf{Width settings.} Global and uniform sweeps use magnitude importance. The requested percentage is a channel-pruning setting, not a percentage of total weights. BN-scale and Taylor are alternative importance criteria at 30\%.
 
-\vspace{5pt}\textbf{Why Q3a was selected.} It satisfies the accuracy and storage targets without recovery training. The smaller B3 INT8 candidate loses 2.40 accuracy points and misses the worst-class target.''')
+\vspace{5pt}\textbf{Why B3 was selected.} Three-epoch recovery raises INT8 accuracy to 98.84\%. It is 17.6\% smaller than Q3a for a 0.08-point overall-accuracy tradeoff, with a 97.70\% worst-class score. The one-epoch attempt is retained as historical evidence.''')
  lines.append(r'\end{minipage}'+(r'\hfill' if idx==0 else ''))
 lines.append(r'''\par\vspace{8pt}
 \noindent\footnotesize\textbf{Source and precision.} A1 uses \code{results/*.json}, replacing timing fields with \code{milestone\_timing} when present, as the dashboard does. A2 uses \code{results/stageA/*.json}. Figures are rounded only for display; the saved JSON records retain the measurement precision. M = million parameters; G = billion multiply--accumulate operations; MiB = $2^{20}$ bytes.
