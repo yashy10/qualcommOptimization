@@ -1,13 +1,13 @@
 {
   "team_name": "REPLACE_ME",
   "baseline": {
-    "accuracy": 0.9915999999999999,
+    "accuracy": 0.9916,
     "params_million": 2.2196,
     "size_mb": 8.506,
     "macs_giga": 0.2995,
     "latency_ms": 2.554,
     "peak_ram_mb": 87.91,
-    "joules_per_inference": 0.05993
+    "joules_per_inference": 0.0599
   },
   "final": {
     "accuracy": 0.9892,
@@ -16,9 +16,9 @@
     "macs_giga": 0.2995,
     "latency_ms": 0.836,
     "peak_ram_mb": 76.86,
-    "joules_per_inference": 0.01938
+    "joules_per_inference": 0.0194
   },
-  "worst_class_accuracy": 0.9523999999999999,
+  "worst_class_accuracy": 0.9524,
   "worst_class": "PermanentCrop",
   "per_class_accuracy": {
     "AnnualCrop": 0.9817,
@@ -27,9 +27,9 @@
     "Highway": 0.9968,
     "Industrial": 0.9992,
     "Pasture": 0.983,
-    "PermanentCrop": 0.9523999999999999,
-    "Residential": 0.9973000000000001,
-    "River": 0.9915999999999999,
+    "PermanentCrop": 0.9524,
+    "Residential": 0.9973,
+    "River": 0.9916,
     "SeaLake": 0.9983
   },
   "codecarbon_mode": "tdp_estimate",
