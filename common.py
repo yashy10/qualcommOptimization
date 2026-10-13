@@ -58,6 +58,11 @@ def load_model(path, arch="mobilenet_v2"):
         # A model saved whole (e.g. after structured pruning changed its layer shapes)
         checkpoint = torch.load(path, map_location="cpu", weights_only=False)
     if isinstance(checkpoint, nn.Module):
+        # thop leaves float64 counting buffers on profiled modules; drop them (they break MPS and bloat exports)
+        for module in checkpoint.modules():
+            for name in ("total_ops", "total_params"):
+                if name in module._buffers:
+                    del module._buffers[name]
         return checkpoint.eval()
     model = build_model(arch)
     model.load_state_dict(checkpoint)

@@ -126,9 +126,12 @@ def adaptive_bn(model):
 
 
 def count(model):
+    import copy
+
     from thop import profile
 
-    macs, params = profile(model, inputs=(torch.randn(*EXAMPLE_INPUT),), verbose=False)
+    # thop attaches counting buffers to the modules it profiles, so give it a copy
+    macs, params = profile(copy.deepcopy(model), inputs=(torch.randn(*EXAMPLE_INPUT),), verbose=False)
     return round(params / 1e6, 4), round(macs / 1e9, 4)
 
 
