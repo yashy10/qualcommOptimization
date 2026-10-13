@@ -8,7 +8,8 @@ in [`submission/`](submission/):
 
 - [INT8 ONNX model](submission/student_model_int8.onnx)
 - [Submission metrics](submission/metrics.json)
-- [Two-page technical report](submission/technical_report.pdf)
+- [Technical report with dashboard appendix (3 pages)](submission/technical_report.pdf)
+- [Main technical report (2 pages)](submission/technical_report_2page.pdf)
 - [Editable LaTeX report source](submission/report_source/technical_report.tex)
 
 The repository includes source code, fixed image-index subsets, experiment configs,

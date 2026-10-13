@@ -1,16 +1,18 @@
-Build the two-page report using TeX Live:
+Build the three-page report (two-page paper plus dashboard appendix):
 
   pdflatex -interaction=nonstopmode -halt-on-error technical_report.tex
   pdflatex -interaction=nonstopmode -halt-on-error technical_report.tex
 
-Keep tradeoff.pdf beside technical_report.tex.
+Keep tradeoff.pdf and dashboard_appendix.tex beside the main .tex file.
+The existing two-page version can be rebuilt using technical_report_2page.tex.
 
-The report focuses on Q3a, the selected quantization-only submission. A short
-section records the completed B3 pruning + one-epoch distillation + INT8 result,
-its accuracy loss, time constraints, and proposals for follow-up work. B3 timing
-is provisional. The main benchmark uses the five-round milestone measurements.
+The appendix is generated from results JSON and mirrors dashboard milestone
+timing substitutions. It includes 14 full-dataset runs and 26 Stage A runs.
+To refresh from the repository, run from submission/report_source:
 
-Evidence: results/q3a_perchannel_pct9999_s8s8.json,
-results/official_baseline_onnx_fp32.json, results/timing/, results/aihub_profiles/,
-results/b3_blocks6-9-16_kd_{fp32,int8}.json, configs/b3_blocks6-9-16_kd.json.
-Sizes labelled MiB use 2^20 bytes, as in the measurement scripts.
+  python3 generate_dashboard_appendix.py --results ../../results
+
+Recompile the report afterward. To build the existing PDF from this source
+bundle alone, the included appendix is sufficient; no experiment data is needed.
+
+Q3a is the selected model. B3 timing is provisional. Sizes use MiB (2^20 bytes).

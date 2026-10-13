@@ -1,0 +1,85 @@
+\clearpage
+\section*{Appendix A. Dashboard data at a glance}
+\noindent\small Recorded experiments from 13 October 2026. Values below come directly from the JSON files behind the dashboard; archived and smoke-test runs are excluded. Teal highlights the submitted model. The first two pages remain the main technical report.
+\vspace{5pt}
+
+\noindent\textbf{A1. Full-dataset experiments: all 27,000 EuroSAT images}
+\begin{center}
+\fontsize{8.5}{10}\selectfont
+\setlength{\tabcolsep}{4.3pt}\renewcommand{\arraystretch}{1.2}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrrrrrc@{}}
+\toprule
+\rowcolor{slate}\textbf{Run} & \textbf{Acc.} & \textbf{Worst} & \textbf{Params} & \textbf{MACs} & \textbf{Size} & \textbf{Latency} & \textbf{RAM} & \textbf{Energy} & \textbf{Time}\\
+\rowcolor{slate} & \textbf{\%} & \textbf{\%} & \textbf{M} & \textbf{G} & \textbf{MiB} & \textbf{ms} & \textbf{MiB} & \textbf{J/image} & \textbf{basis}\\
+\midrule
+FP32 ONNX & 99.16 & 95.84 & 2.220 & 0.2995 & 8.506 & 2.554 & 87.91 & 0.05993 & M\\
+FP32 PyTorch & 99.16 & 95.84 & 2.237 & 0.3262 & 8.772 & 19.862 & 303.19 & 0.32409 & S\\
+Q0 & 96.32 & 88.13 & 2.220 & 0.2995 & 2.277 & 0.905 & 75.56 & 0.02251 & P\\
+Q1 & 98.09 & 95.45 & 2.220 & 0.2995 & 2.491 & 0.824 & 76.42 & 0.01843 & P\\
+Q1b & 98.09 & 95.45 & 2.220 & 0.2995 & 2.491 & 0.928 & 76.42 & 0.05401 & P\\
+Q2 & 98.09 & 95.45 & 2.220 & 0.2995 & 2.491 & 0.835 & 77.17 & 0.02076 & P\\
+\rowcolor{pale}\textbf{Q3a (selected)} & \textbf{98.92} & \textbf{95.24} & \textbf{2.220} & \textbf{0.2995} & \textbf{2.491} & \textbf{0.836} & \textbf{76.86} & \textbf{0.01938} & \textbf{M}\\
+Q3b & 98.69 & 95.92 & 2.220 & 0.2995 & 2.491 & 0.836 & 77.08 & 0.01809 & P\\
+Q4 & 98.86 & 94.88 & 2.220 & 0.2995 & 2.528 & 1.056 & 77.84 & 0.02448 & P\\
+Q6a: 100 images & 98.83 & 94.72 & 2.220 & 0.2995 & 2.491 & 0.912 & 77.16 & 0.11928 & P\\
+Q6b: 1,000 images & 98.90 & 94.96 & 2.220 & 0.2995 & 2.491 & 0.838 & 78.52 & 0.03317 & P\\
+Q7: FP16 & 99.17 & 95.88 & 2.220 & 0.2995 & 4.285 & 2.708 & 89.33 & 0.06280 & M\\
+B3: pruned FP32 & 96.49 & 88.52 & 1.834 & 0.2627 & 7.028 & 2.263 & 83.25 & 0.06386 & P\\
+B3: pruned INT8 & 96.52 & 89.28 & 1.834 & 0.2627 & 2.052 & 0.740 & 75.22 & 0.01599 & P\\
+\bottomrule
+\end{tabular*}
+\end{center}
+\vspace{-4pt}
+\noindent\footnotesize\textbf{Reading the table.} M = median of five milestone rounds; P = provisional single-session measurement; S = single-session reference. Latency is the median within a round. All energy values are CodeCarbon estimates; unusually high provisional values should not be treated as settled comparisons. Worst class is Forest for Q0, Pasture for Q1/Q1b/Q2, and PermanentCrop otherwise. ONNX and PyTorch counts/runtime overhead differ; compare within the same runtime. Q0--Q7 settings are defined in Table 1; B3 removes blocks 6, 9 and 16 and adds one recovery epoch.
+\vspace{8pt}
+
+\noindent\small\textbf{A2. Pruning exploration: 2,700-image quick evaluation, before recovery training}
+
+\noindent\footnotesize All candidates use adaptive BN before evaluation. Counts are measured with the same PyTorch/thop method as the reference. These subset accuracies are not directly comparable with A1; latency, RAM and energy were not measured for these Stage A runs.
+\vspace{4pt}
+
+\noindent\begin{minipage}[t]{0.49\textwidth}\vspace{0pt}\centering\fontsize{8.5}{10}\selectfont\setlength{\tabcolsep}{2.3pt}\renewcommand{\arraystretch}{1.16}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrr@{}}\toprule
+\rowcolor{slate}\textbf{Candidate} & \textbf{Acc. \%} & \textbf{Worst \%} & \textbf{Params M} & \textbf{MACs G} & \textbf{MiB}\\\midrule
+Reference + BN & 99.37 & 97.60 & 2.237 & 0.3262 & 8.506\\
+Drop block 3 & 97.33 & 91.20 & 2.228 & 0.2966 & 8.472\\
+Drop block 5 & 98.52 & 93.60 & 2.222 & 0.3139 & 8.449\\
+Drop block 6 & 98.96 & 95.60 & 2.222 & 0.3139 & 8.449\\
+Drop block 8 & 98.67 & 96.00 & 2.182 & 0.3153 & 8.300\\
+Drop block 9 & 98.96 & 95.20 & 2.182 & 0.3153 & 8.300\\
+Drop block 10 & 98.48 & 93.20 & 2.182 & 0.3153 & 8.300\\
+Drop block 12 & 98.48 & 93.20 & 2.118 & 0.3025 & 8.058\\
+Drop block 13 & 98.41 & 95.60 & 2.118 & 0.3025 & 8.058\\
+Drop block 15 & 98.44 & 94.00 & 1.917 & 0.3103 & 7.291\\
+Drop block 16 & 98.93 & 96.00 & 1.917 & 0.3103 & 7.291\\
+Stack 1 block & 98.96 & 95.60 & 2.222 & 0.3139 & 8.449\\
+Stack 2 blocks & 98.52 & 93.20 & 2.168 & 0.3030 & 8.243\\
+Stack 3 blocks & 97.56 & 92.00 & 1.848 & 0.2871 & 7.028\\
+Stack 4 blocks & 94.07 & 84.40 & 1.793 & 0.2761 & 6.822\\
+Stack 5 blocks & 91.07 & 79.60 & 1.778 & 0.2638 & 6.764\\
+\bottomrule\end{tabular*}
+\end{minipage}\hfill
+\noindent\begin{minipage}[t]{0.49\textwidth}\vspace{0pt}\centering\fontsize{8.5}{10}\selectfont\setlength{\tabcolsep}{2.3pt}\renewcommand{\arraystretch}{1.16}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrr@{}}\toprule
+\rowcolor{slate}\textbf{Candidate} & \textbf{Acc. \%} & \textbf{Worst \%} & \textbf{Params M} & \textbf{MACs G} & \textbf{MiB}\\\midrule
+Global 10\% & 77.19 & 47.20 & 1.808 & 0.2247 & 6.878\\
+Global 20\% & 57.19 & 16.67 & 1.439 & 0.1789 & 5.476\\
+Global 30\% & 39.41 & 5.67 & 1.095 & 0.1421 & 4.170\\
+Global 40\% & 18.85 & 0.00 & 0.828 & 0.1099 & 3.157\\
+Uniform 10\% & 76.26 & 43.20 & 1.784 & 0.2366 & 6.788\\
+Uniform 20\% & 65.00 & 51.20 & 1.421 & 0.1984 & 5.409\\
+Uniform 30\% & 39.15 & 27.00 & 1.092 & 0.1527 & 4.158\\
+Uniform 40\% & 21.37 & 0.00 & 0.810 & 0.1144 & 3.089\\
+30\% BN-scale & 15.81 & 0.00 & 1.025 & 0.1584 & 3.903\\
+30\% Taylor & 22.74 & 0.00 & 1.003 & 0.1556 & 3.819\\
+\bottomrule\end{tabular*}
+\par\vspace{8pt}\raggedright\footnotesize
+\textbf{Depth-stack key.} Blocks are added in this order: 6, 9, 16, 8, 5. Thus ``Stack 3'' removes 6+9+16; ``Stack 4'' also removes block 8.
+
+\vspace{5pt}\textbf{Width settings.} Global and uniform sweeps use magnitude importance. The requested percentage is a channel-pruning setting, not a percentage of total weights. BN-scale and Taylor are alternative importance criteria at 30\%.
+
+\vspace{5pt}\textbf{Why Q3a was selected.} It satisfies the accuracy and storage targets without recovery training. The smaller B3 INT8 candidate loses 2.40 accuracy points and misses the worst-class target.
+\end{minipage}
+\par\vspace{8pt}
+\noindent\footnotesize\textbf{Source and precision.} A1 uses \code{results/*.json}, replacing timing fields with \code{milestone\_timing} when present, as the dashboard does. A2 uses \code{results/stageA/*.json}. Figures are rounded only for display; the saved JSON records retain the measurement precision. M = million parameters; G = billion multiply--accumulate operations; MiB = $2^{20}$ bytes.
+
