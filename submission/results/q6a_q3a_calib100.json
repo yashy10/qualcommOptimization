@@ -1,0 +1,73 @@
+{
+  "name": "q6a_q3a_calib100",
+  "what_we_did": "Q6a: Q3a settings (per-channel, Percentile 99.99, S8S8) with 100 calibration images instead of 300. Stability check.",
+  "result_type": "local measurement (ours, not an organizer-provided number)",
+  "smoke_test": false,
+  "model": "models/q6a_q3a_calib100.onnx",
+  "model_sha256": "e9b0b473bcbbbff78f9817d78eb3d6fc41791771c53af3d63370cda886c74a07",
+  "format": "onnx",
+  "measured_at": "2026-10-13T11:49:16",
+  "conditions": {
+    "background_cpu_percent": 68.1,
+    "on_ac_power": true
+  },
+  "timing_status": "provisional",
+  "runtime": "onnxruntime 1.31.0 (CPUExecutionProvider)",
+  "thread_setting": "onnxruntime default (intra_op_num_threads=0)",
+  "ram_before_model_mb": 49.5,
+  "latency_ms": 0.956,
+  "latency_std_ms": 0.128,
+  "latency_median_ms": 0.912,
+  "latency_p95_ms": 1.26,
+  "peak_ram_mb": 77.16,
+  "peak_ram_maxrss_mb": 77.17,
+  "joules_per_inference": 0.11928,
+  "energy_source": "estimate",
+  "codecarbon_mode": "tdp_estimate",
+  "codecarbon_hardware": [
+    "RAM()",
+    "CPU(Cpu Load)"
+  ],
+  "energy_inferences": 9610,
+  "params_million": 2.2196,
+  "macs_giga": 0.2995,
+  "count_method": "onnx graph",
+  "size_mb": 2.491,
+  "accuracy": 98.83,
+  "worst_class": "PermanentCrop",
+  "worst_class_accuracy": 94.72,
+  "per_class_accuracy": {
+    "AnnualCrop": 97.77,
+    "Forest": 99.8,
+    "HerbaceousVegetation": 98.97,
+    "Highway": 99.88,
+    "Industrial": 99.92,
+    "Pasture": 98.0,
+    "PermanentCrop": 94.72,
+    "Residential": 99.73,
+    "River": 99.16,
+    "SeaLake": 99.83
+  },
+  "split": "full_dataset_judge_instruction",
+  "images_evaluated": 27000,
+  "method": {
+    "input": "one image per inference, shape (1, 3, 224, 224); random values for timing, real images for accuracy",
+    "accuracy": "top-1 over one pass of the evaluation set, Section 4 preprocessing",
+    "params_and_macs": "onnx graph",
+    "latency": "mean of 100 timed inferences after 10 warm-up inferences",
+    "peak_ram": "highest process RSS, sampled every 10 ms during the timed inferences (psutil)",
+    "energy": "codecarbon over 15 s of back-to-back inferences, divided by the inference count"
+  },
+  "machine": "Apple M3 Pro, 11 cores, 18 GB RAM, Darwin 25.4.0, CPU only",
+  "environment": {
+    "python": "3.11.14",
+    "torch": "2.14.1",
+    "torchvision": "0.29.1",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.0",
+    "thop": "0.1.1-2209072238",
+    "codecarbon": "3.3.1",
+    "psutil": "7.2.2",
+    "numpy": "2.4.6"
+  }
+}

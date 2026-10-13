@@ -1,0 +1,25 @@
+[
+  {
+    "label": "baseline_fp32",
+    "submitted_at": "2026-10-13T11:28:33",
+    "model": "models/student_fp32.onnx",
+    "device": "Dragonwing RB3 Gen 2 Vision Kit",
+    "compile_options": "--target_runtime onnx",
+    "compile_job_id": "jp8j1yxo5",
+    "compile_job_url": "https://workbench.aihub.qualcomm.com/jobs/jp8j1yxo5/",
+    "profile_job_id": "jgk68x4n5",
+    "profile_job_url": "https://workbench.aihub.qualcomm.com/jobs/jgk68x4n5/",
+    "note": "ids recovered via get_job_summaries after a recording bug; submitted once"
+  },
+  {
+    "label": "q3a_pct9999",
+    "submitted_at": "2026-10-13T11:42:42",
+    "model": "models/q3a_perchannel_pct9999_s8s8.onnx",
+    "device": "Dragonwing RB3 Gen 2 Vision Kit",
+    "compile_options": "--target_runtime onnx",
+    "compile_job_id": "jgd6216zp",
+    "compile_job_url": "https://workbench.aihub.qualcomm.com/jobs/jgd6216zp/",
+    "profile_job_id": "j5wy46y4g",
+    "profile_job_url": "https://workbench.aihub.qualcomm.com/jobs/j5wy46y4g/"
+  }
+]

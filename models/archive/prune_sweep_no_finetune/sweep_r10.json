@@ -1,0 +1,84 @@
+{
+  "name": "sweep_r10",
+  "created_at": "2026-10-13T12:33:22",
+  "checkpoint": "student_mobilenetv2_distilled.pt",
+  "checkpoint_sha256": "842e9dc640bbdb6c71186ff2ecae06f670b1aef7be8ac6b64ede56f5c727c9a8",
+  "method": "structured pruning of inverted-residual hidden channels, ranked by |gamma| of the depthwise BatchNorm, uniform ratio per block, kept channels rounded to a multiple of 8",
+  "ratio": 0.1,
+  "fine_tuned": false,
+  "params_million_before": 2.2367,
+  "params_million_after": 2.0568,
+  "macs_giga_before": 0.3262,
+  "macs_giga_after": 0.2989,
+  "blocks": {
+    "features.2": {
+      "hidden": 96,
+      "kept": 88
+    },
+    "features.3": {
+      "hidden": 144,
+      "kept": 128
+    },
+    "features.4": {
+      "hidden": 144,
+      "kept": 128
+    },
+    "features.5": {
+      "hidden": 192,
+      "kept": 176
+    },
+    "features.6": {
+      "hidden": 192,
+      "kept": 176
+    },
+    "features.7": {
+      "hidden": 192,
+      "kept": 176
+    },
+    "features.8": {
+      "hidden": 384,
+      "kept": 344
+    },
+    "features.9": {
+      "hidden": 384,
+      "kept": 344
+    },
+    "features.10": {
+      "hidden": 384,
+      "kept": 344
+    },
+    "features.11": {
+      "hidden": 384,
+      "kept": 344
+    },
+    "features.12": {
+      "hidden": 576,
+      "kept": 520
+    },
+    "features.13": {
+      "hidden": 576,
+      "kept": 520
+    },
+    "features.14": {
+      "hidden": 576,
+      "kept": 520
+    },
+    "features.15": {
+      "hidden": 960,
+      "kept": 864
+    },
+    "features.16": {
+      "hidden": 960,
+      "kept": 864
+    },
+    "features.17": {
+      "hidden": 960,
+      "kept": 864
+    }
+  },
+  "quick_accuracy": {
+    "images": 2000,
+    "accuracy": 11.2,
+    "note": "subset check, not the official 27,000-image figure"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "a1_block3",
+  "checkpoint": "student_mobilenetv2_distilled.pt",
+  "checkpoint_sha256": "842e9dc640bbdb6c71186ff2ecae06f670b1aef7be8ac6b64ede56f5c727c9a8",
+  "seed": 0,
+  "remove_blocks": [
+    3
+  ],
+  "width": null,
+  "adaptive_bn": {
+    "batches": 100,
+    "batch_size": 32,
+    "subset": "subsets/finetune_subset_20.json"
+  },
+  "torch_pruning": "1.6.1",
+  "created_at": "2026-10-13T13:22:19",
+  "model": "models/stageA/a1_block3.pt",
+  "model_sha256": "4f34694b943841282beeef6c11e3fbb3bba61bea5614682c1154accd9d1f42c9"
+}

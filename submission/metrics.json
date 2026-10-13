@@ -1,0 +1,72 @@
+{
+  "team_name": "REPLACE_ME",
+  "baseline": {
+    "accuracy": 0.9915999999999999,
+    "params_million": 2.2196,
+    "size_mb": 8.506,
+    "macs_giga": 0.2995,
+    "latency_ms": 2.554,
+    "peak_ram_mb": 87.91,
+    "joules_per_inference": 0.05993
+  },
+  "final": {
+    "accuracy": 0.9892,
+    "params_million": 2.2196,
+    "size_mb": 2.491,
+    "macs_giga": 0.2995,
+    "latency_ms": 0.836,
+    "peak_ram_mb": 76.86,
+    "joules_per_inference": 0.01938
+  },
+  "worst_class_accuracy": 0.9523999999999999,
+  "worst_class": "PermanentCrop",
+  "per_class_accuracy": {
+    "AnnualCrop": 0.9817,
+    "Forest": 0.9987,
+    "HerbaceousVegetation": 0.9883,
+    "Highway": 0.9968,
+    "Industrial": 0.9992,
+    "Pasture": 0.983,
+    "PermanentCrop": 0.9523999999999999,
+    "Residential": 0.9973000000000001,
+    "River": 0.9915999999999999,
+    "SeaLake": 0.9983
+  },
+  "codecarbon_mode": "tdp_estimate",
+  "techniques_applied": [
+    "quant_pre_process (BatchNorm folding, shape inference)",
+    "static post-training quantization, QDQ format, per-channel symmetric int8 weights, asymmetric int8 activations (S8S8)",
+    "Percentile 99.99 calibration on 300 fixed, class-balanced images (subsets/calibration_indices_300_seed42.json)"
+  ],
+  "ratios_vs_baseline": {
+    "accuracy_retained": 0.9976,
+    "size": 3.41,
+    "latency": 3.06,
+    "peak_ram": 1.14,
+    "energy": 3.09
+  },
+  "ai_hub_profile_summary": {
+    "device": "Dragonwing RB3 Gen 2 Vision Kit (QCS6490), closest listed low-power Qualcomm IoT device to the Arduino UNO Q",
+    "runtime": "ONNX (--target_runtime onnx), all layers on CPU",
+    "baseline_fp32": {
+      "estimated_inference_ms": 26.69,
+      "peak_memory_mb": 28.1,
+      "jobs": [
+        "jp8j1yxo5",
+        "jgk68x4n5"
+      ]
+    },
+    "final_int8": {
+      "estimated_inference_ms": 6.225,
+      "peak_memory_mb": 29.4,
+      "jobs": [
+        "jgd6216zp",
+        "j5wy46y4g"
+      ]
+    },
+    "speedup": 4.29
+  },
+  "measurement_machine": "Apple M3 Pro, 11 cores, 18 GB RAM, Darwin 25.4.0, CPU only; milestone timing = median of 5 alternating rounds, clean session, mains power",
+  "evaluation_data": "all 27,000 EuroSAT images (judge instruction, no val_split)",
+  "model_file": "student_model_int8.onnx (= models/q3a_perchannel_pct9999_s8s8.onnx, sha256 33352034873308162e8c04e92276f2485808cadf44f920636b08878577771f36)"
+}

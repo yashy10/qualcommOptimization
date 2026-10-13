@@ -1,0 +1,638 @@
+{
+ "execution_summary": {
+  "estimated_inference_time": 6225,
+  "estimated_inference_peak_memory": 30777344,
+  "first_load_time": 86466,
+  "first_load_peak_memory": 14741504,
+  "warm_load_time": 79157,
+  "warm_load_peak_memory": 16138240,
+  "compile_time": 0,
+  "compile_peak_memory": 0,
+  "compile_memory_increase_range": [
+   0,
+   0
+  ],
+  "compile_memory_peak_range": [
+   0,
+   0
+  ],
+  "first_load_memory_increase_range": [
+   10288272,
+   11088192
+  ],
+  "first_load_memory_peak_range": [
+   11808768,
+   12608688
+  ],
+  "warm_load_memory_increase_range": [
+   10292384,
+   11094768
+  ],
+  "warm_load_memory_peak_range": [
+   13201408,
+   14003792
+  ],
+  "inference_memory_increase_range": [
+   0,
+   0
+  ],
+  "inference_memory_peak_range": [
+   11042816,
+   17547008
+  ],
+  "all_compile_times": [],
+  "all_first_load_times": [
+   86466
+  ],
+  "all_warm_load_times": [
+   79157
+  ],
+  "all_inference_times": [
+   14788,
+   6773,
+   6882,
+   6763,
+   6750,
+   6358,
+   6309,
+   6256,
+   6324,
+   6453,
+   6303,
+   8116,
+   6538,
+   6382,
+   6314,
+   6313,
+   6269,
+   6266,
+   6264,
+   6275,
+   6275,
+   6313,
+   6361,
+   6440,
+   6284,
+   6270,
+   6283,
+   6496,
+   6235,
+   6468,
+   6293,
+   6229,
+   6264,
+   6270,
+   6278,
+   6243,
+   6267,
+   6231,
+   6225,
+   6251,
+   6312,
+   6336,
+   6257,
+   6285,
+   6248,
+   6380,
+   6250,
+   6267,
+   6316,
+   6256,
+   6307,
+   6310,
+   6289,
+   6765,
+   6766,
+   6280,
+   6254,
+   6267,
+   6268,
+   6283,
+   6269,
+   6382,
+   6504,
+   6356,
+   6309,
+   6291,
+   6247,
+   6539,
+   6269,
+   6349,
+   6311,
+   6248,
+   6303,
+   6235,
+   6225,
+   6275,
+   6265,
+   6539,
+   6245,
+   6289,
+   6250,
+   6251,
+   6270,
+   6565,
+   6302,
+   6274,
+   6262,
+   6254,
+   6271,
+   6275,
+   6256,
+   6282,
+   6231,
+   6388,
+   6248,
+   6257,
+   6258,
+   6289,
+   6280,
+   6262
+  ]
+ },
+ "execution_detail": [
+  {
+   "name": "input_QuantizeLinear",
+   "type": "QuantizeLinear",
+   "compute_unit": "CPU",
+   "execution_time": 159,
+   "execution_cycles": 0
+  },
+  {
+   "name": "Transpose",
+   "type": "Transpose",
+   "compute_unit": "CPU",
+   "execution_time": 85,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.0/features.0.0/Conv_token_1",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 445,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.1/conv/conv.0/conv.0.0/Conv_token_4",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 175,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.1/conv/conv.1/Conv_token_7",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 87,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.2/conv/conv.0/conv.0.0/Conv_token_10",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 820,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.2/conv/conv.1/conv.1.0/Conv_token_13",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 468,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.2/conv/conv.2/Conv_token_16",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 158,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.3/conv/conv.0/conv.0.0/Conv_token_19",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 236,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.3/conv/conv.1/conv.1.0/Conv_token_22",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 209,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.3/conv/conv.2/Conv_token_25",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 163,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.3/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 207,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.4/conv/conv.0/conv.0.0/Conv_token_29",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 209,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.4/conv/conv.1/conv.1.0/Conv_token_32",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 133,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.4/conv/conv.2/Conv_token_35",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 106,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.5/conv/conv.0/conv.0.0/Conv_token_38",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 131,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.5/conv/conv.1/conv.1.0/Conv_token_41",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 128,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.5/conv/conv.2/Conv_token_44",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 119,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.5/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 117,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.6/conv/conv.0/conv.0.0/Conv_token_48",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 125,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.6/conv/conv.1/conv.1.0/Conv_token_51",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 124,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.6/conv/conv.2/Conv_token_54",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 110,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.6/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 114,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.7/conv/conv.0/conv.0.0/Conv_token_58",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 123,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.7/conv/conv.1/conv.1.0/Conv_token_61",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 97,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.7/conv/conv.2/Conv_token_64",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 99,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.8/conv/conv.0/conv.0.0/Conv_token_67",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 122,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.8/conv/conv.1/conv.1.0/Conv_token_70",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 108,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.8/conv/conv.2/Conv_token_73",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 106,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.8/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 85,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.9/conv/conv.0/conv.0.0/Conv_token_77",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 120,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.9/conv/conv.1/conv.1.0/Conv_token_80",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 105,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.9/conv/conv.2/Conv_token_83",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 104,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.9/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 83,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.10/conv/conv.0/conv.0.0/Conv_token_87",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 120,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.10/conv/conv.1/conv.1.0/Conv_token_90",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 106,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.10/conv/conv.2/Conv_token_93",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 102,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.10/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 84,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.11/conv/conv.0/conv.0.0/Conv_token_97",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 120,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.11/conv/conv.1/conv.1.0/Conv_token_100",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 103,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.11/conv/conv.2/Conv_token_103",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 115,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.12/conv/conv.0/conv.0.0/Conv_token_106",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 162,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.12/conv/conv.1/conv.1.0/Conv_token_109",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 121,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.12/conv/conv.2/Conv_token_112",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 138,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.12/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 98,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.13/conv/conv.0/conv.0.0/Conv_token_116",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 164,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.13/conv/conv.1/conv.1.0/Conv_token_119",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 117,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.13/conv/conv.2/Conv_token_122",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 131,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.13/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 96,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.14/conv/conv.0/conv.0.0/Conv_token_126",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 161,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.14/conv/conv.1/conv.1.0/Conv_token_129",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 99,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.14/conv/conv.2/Conv_token_132",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 121,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.15/conv/conv.0/conv.0.0/Conv_token_135",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 173,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.15/conv/conv.1/conv.1.0/Conv_token_138",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 115,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.15/conv/conv.2/Conv_token_141",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 147,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.15/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 76,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.16/conv/conv.0/conv.0.0/Conv_token_145",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 167,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.16/conv/conv.1/conv.1.0/Conv_token_148",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 109,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.16/conv/conv.2/Conv_token_151",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 149,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.16/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 79,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.17/conv/conv.0/conv.0.0/Conv_token_155",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 164,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.17/conv/conv.1/conv.1.0/Conv_token_158",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 109,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.17/conv/conv.2/Conv_token_161",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 216,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.18/features.18.0/Conv_token_164",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 272,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/GlobalAveragePool",
+   "type": "QLinearGlobalAveragePool",
+   "compute_unit": "CPU",
+   "execution_time": 106,
+   "execution_cycles": 0
+  },
+  {
+   "name": "Transpose_token_176",
+   "type": "Transpose",
+   "compute_unit": "CPU",
+   "execution_time": 52,
+   "execution_cycles": 0
+  },
+  {
+   "name": "node_Reshape_0",
+   "type": "Reshape",
+   "compute_unit": "CPU",
+   "execution_time": 50,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/classifier/classifier.1/Gemm",
+   "type": "QGemm",
+   "compute_unit": "CPU",
+   "execution_time": 88,
+   "execution_cycles": 0
+  },
+  {
+   "name": "output_DequantizeLinear",
+   "type": "DequantizeLinear",
+   "compute_unit": "CPU",
+   "execution_time": 56,
+   "execution_cycles": 0
+  }
+ ]
+}

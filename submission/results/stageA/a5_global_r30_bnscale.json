@@ -1,0 +1,47 @@
+{
+  "name": "a5_global_r30_bnscale",
+  "stage": "A",
+  "group": "A5",
+  "what_we_did": "A5: global channel pruning ratio 0.3 with bnscale importance, adaptive BN",
+  "result_type": "provisional (quick-eval on the 10% subset, no fine-tuning)",
+  "split": "quickeval_subset_10",
+  "images_evaluated": 2700,
+  "accuracy": 15.81,
+  "worst_class": "Residential",
+  "worst_class_accuracy": 0.0,
+  "per_class_accuracy": {
+    "AnnualCrop": 29.0,
+    "Forest": 19.33,
+    "HerbaceousVegetation": 37.67,
+    "Highway": 22.8,
+    "Industrial": 14.0,
+    "Pasture": 2.5,
+    "PermanentCrop": 7.6,
+    "Residential": 0.0,
+    "River": 21.2,
+    "SeaLake": 0.0
+  },
+  "params_million": 1.0246,
+  "macs_giga": 0.1584,
+  "count_method": "thop on the PyTorch model",
+  "size_mb": 3.903,
+  "export_ok": true,
+  "export_agreement": "500/500",
+  "model": "models/stageA/a5_global_r30_bnscale.pt",
+  "onnx": "models/stageA/a5_global_r30_bnscale_fp32.onnx",
+  "config": "configs/a5_global_r30_bnscale.json",
+  "remove_blocks": [],
+  "width": {
+    "ratio": 0.3,
+    "global": true,
+    "criterion": "bnscale",
+    "round_to": 8,
+    "isomorphic": true,
+    "taylor_batches": null,
+    "ignored_layers": [
+      "classifier.1"
+    ]
+  },
+  "measured_at": "2026-10-13T13:45:53",
+  "seconds": 219
+}

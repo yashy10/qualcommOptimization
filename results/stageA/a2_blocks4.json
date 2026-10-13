@@ -1,0 +1,42 @@
+{
+  "name": "a2_blocks4",
+  "stage": "A",
+  "group": "A2",
+  "what_we_did": "A2: remove the 4 least damaging blocks [6, 8, 9, 16], adaptive BN",
+  "result_type": "provisional (quick-eval on the 10% subset, no fine-tuning)",
+  "split": "quickeval_subset_10",
+  "images_evaluated": 2700,
+  "accuracy": 94.07,
+  "worst_class": "River",
+  "worst_class_accuracy": 84.4,
+  "per_class_accuracy": {
+    "AnnualCrop": 97.0,
+    "Forest": 97.33,
+    "HerbaceousVegetation": 93.67,
+    "Highway": 96.4,
+    "Industrial": 98.0,
+    "Pasture": 99.0,
+    "PermanentCrop": 88.8,
+    "Residential": 96.67,
+    "River": 84.4,
+    "SeaLake": 89.67
+  },
+  "params_million": 1.7933,
+  "macs_giga": 0.2761,
+  "count_method": "thop on the PyTorch model",
+  "size_mb": 6.822,
+  "export_ok": true,
+  "export_agreement": "500/500",
+  "model": "models/stageA/a2_blocks4.pt",
+  "onnx": "models/stageA/a2_blocks4_fp32.onnx",
+  "config": "configs/a2_blocks4.json",
+  "remove_blocks": [
+    6,
+    8,
+    9,
+    16
+  ],
+  "width": null,
+  "measured_at": "2026-10-13T14:26:20",
+  "seconds": 215
+}

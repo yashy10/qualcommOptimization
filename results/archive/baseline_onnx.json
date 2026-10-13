@@ -1,0 +1,45 @@
+{
+  "name": "baseline_onnx",
+  "model": "models/student_fp32.onnx",
+  "format": "onnx",
+  "measured_at": "2026-10-13T10:18:54",
+  "latency_ms": 2.575,
+  "latency_median_ms": 2.565,
+  "latency_p95_ms": 2.61,
+  "peak_ram_mb": 87.95,
+  "threads": "onnxruntime default",
+  "peak_ram_maxrss_mb": 87.95,
+  "joules_per_inference": 0.05914,
+  "energy_inferences": 5805,
+  "codecarbon_mode": "tdp_estimate",
+  "codecarbon_hardware": [
+    "RAM()",
+    "CPU(Cpu Load)"
+  ],
+  "params_million": 2.2196,
+  "macs_giga": 0.2995,
+  "count_method": "onnx graph",
+  "size_mb": 8.506,
+  "accuracy": 99.22,
+  "worst_class": "PermanentCrop",
+  "worst_class_accuracy": 95.6,
+  "per_class_accuracy": {
+    "AnnualCrop": 98.83,
+    "Forest": 100.0,
+    "HerbaceousVegetation": 99.0,
+    "Highway": 99.6,
+    "Industrial": 100.0,
+    "Pasture": 99.5,
+    "PermanentCrop": 95.6,
+    "Residential": 99.83,
+    "River": 99.6,
+    "SeaLake": 100.0
+  },
+  "val_images": 5400,
+  "val_split": {
+    "seed": 42,
+    "val_fraction": 0.2,
+    "stratified": true
+  },
+  "machine": "Apple M3 Pro, 11 cores, 18 GB RAM, Darwin 25.4.0, CPU only"
+}

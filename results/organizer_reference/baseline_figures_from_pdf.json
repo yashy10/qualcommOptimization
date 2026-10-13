@@ -1,0 +1,18 @@
+{
+  "what_this_is": "Organizer-provided reference numbers, copied by hand from the challenge PDF. We did NOT measure these, and this is NOT the official baseline_metrics.json, which we have not received.",
+  "source": "The Minimalist Edge AI Challenge.pdf, Section 2, 'Baseline figures' table",
+  "transcribed_on": "2026-10-13",
+  "values_as_printed": {
+    "accuracy": "[98.00]%",
+    "params": "[23.53] M",
+    "size_fp32": "[22.67] MB",
+    "macs": "[4.13] G",
+    "worst_class": "[XX.XX]%"
+  },
+  "caveats": [
+    "Every value is printed inside square brackets, and the worst-class value is the placeholder XX.XX, so the table looks like an unfilled template.",
+    "23.53 M parameters and 4.13 G MACs equal what we measure for the ResNet-50 teacher (teacher_resnet50_eurosat.pt), not for the MobileNetV2 student the same PDF names as the baseline (2.24 M parameters, 0.33 G MACs).",
+    "22.67 MB matches neither supplied file: the student checkpoint is 8.77 MB and the teacher checkpoint is 90.06 MB.",
+    "Ask the organizers for baseline_metrics.json before quoting any of these as the official denominator."
+  ]
+}

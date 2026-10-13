@@ -1,0 +1,9 @@
+{
+  "name": "q7_fp16",
+  "created_at": "2026-10-13T11:52:02",
+  "method": "onnxruntime.transformers.float16.convert_float_to_float16, keep_io_types=True",
+  "input_model": "models/student_fp32.onnx",
+  "input_model_sha256": "2eed36a81af42f749c1b47dc4723626b3978aff4b40672cbcb69e8160749d4e4",
+  "output_model_sha256": "15b3b31b137f21e6991ab54324daeb7f212a9278a8c2cdc6cf63d8b223f4b212",
+  "onnxruntime_version": "1.31.0"
+}

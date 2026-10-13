@@ -1,0 +1,39 @@
+{
+  "name": "a1_block15",
+  "stage": "A",
+  "group": "A1",
+  "what_we_did": "A1: remove features[15] (residual block) alone, adaptive BN",
+  "result_type": "provisional (quick-eval on the 10% subset, no fine-tuning)",
+  "split": "quickeval_subset_10",
+  "images_evaluated": 2700,
+  "accuracy": 98.44,
+  "worst_class": "PermanentCrop",
+  "worst_class_accuracy": 94.0,
+  "per_class_accuracy": {
+    "AnnualCrop": 99.0,
+    "Forest": 99.0,
+    "HerbaceousVegetation": 98.33,
+    "Highway": 100.0,
+    "Industrial": 100.0,
+    "Pasture": 99.5,
+    "PermanentCrop": 94.0,
+    "Residential": 97.67,
+    "River": 98.4,
+    "SeaLake": 98.67
+  },
+  "params_million": 1.9167,
+  "macs_giga": 0.3103,
+  "count_method": "thop on the PyTorch model",
+  "size_mb": 7.291,
+  "export_ok": true,
+  "export_agreement": "500/500",
+  "model": "models/stageA/a1_block15.pt",
+  "onnx": "models/stageA/a1_block15_fp32.onnx",
+  "config": "configs/a1_block15.json",
+  "remove_blocks": [
+    15
+  ],
+  "width": null,
+  "measured_at": "2026-10-13T14:06:49",
+  "seconds": 301
+}

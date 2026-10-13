@@ -1,0 +1,78 @@
+{
+  "name": "baseline_student_pytorch",
+  "result_type": "local measurement (ours, not an organizer-provided number)",
+  "smoke_test": false,
+  "model": "student_mobilenetv2_distilled.pt",
+  "model_sha256": "842e9dc640bbdb6c71186ff2ecae06f670b1aef7be8ac6b64ede56f5c727c9a8",
+  "format": "pytorch",
+  "measured_at": "2026-10-13T10:30:12",
+  "conditions": {
+    "background_cpu_percent": 4.0,
+    "on_ac_power": false
+  },
+  "runtime": "pytorch 2.14.1 (CPU)",
+  "thread_setting": "pytorch default (5 intra-op threads)",
+  "ram_before_model_mb": 284.95,
+  "latency_ms": 19.157,
+  "latency_std_ms": 0.471,
+  "latency_median_ms": 19.08,
+  "latency_p95_ms": 19.526,
+  "peak_ram_mb": 319.42,
+  "peak_ram_maxrss_mb": 319.42,
+  "joules_per_inference": 0.3003,
+  "energy_source": "estimate",
+  "codecarbon_mode": "tdp_estimate",
+  "codecarbon_hardware": [
+    "RAM()",
+    "CPU(Cpu Load)"
+  ],
+  "energy_inferences": 780,
+  "params_million": 2.2367,
+  "macs_giga": 0.3262,
+  "count_method": "thop",
+  "size_mb": 8.772,
+  "accuracy": 99.22,
+  "worst_class": "PermanentCrop",
+  "worst_class_accuracy": 95.6,
+  "per_class_accuracy": {
+    "AnnualCrop": 98.83,
+    "Forest": 100.0,
+    "HerbaceousVegetation": 99.0,
+    "Highway": 99.6,
+    "Industrial": 100.0,
+    "Pasture": 99.5,
+    "PermanentCrop": 95.6,
+    "Residential": 99.83,
+    "River": 99.6,
+    "SeaLake": 100.0
+  },
+  "val_images_evaluated": 5400,
+  "validation_split": {
+    "status": "provisional",
+    "official": false,
+    "description": "local stratified split, seed 42, 20% of each class held out; not the organizers' split",
+    "train_images": 21600,
+    "val_images": 5400,
+    "val_indices_sha256": "6bb5fc43e61eff9f645c1d45a811e95c5f36e530bc241fcc03e3db46f7e284e1"
+  },
+  "method": {
+    "input": "one image per inference, shape (1, 3, 224, 224); random values for timing, real images for accuracy",
+    "accuracy": "top-1 over one pass of the validation split, Section 4 preprocessing",
+    "params_and_macs": "thop",
+    "latency": "mean of 100 timed inferences after 10 warm-up inferences",
+    "peak_ram": "highest process RSS, sampled every 10 ms during the timed inferences (psutil)",
+    "energy": "codecarbon over 15 s of back-to-back inferences, divided by the inference count"
+  },
+  "machine": "Apple M3 Pro, 11 cores, 18 GB RAM, Darwin 25.4.0, CPU only",
+  "environment": {
+    "python": "3.11.14",
+    "torch": "2.14.1",
+    "torchvision": "0.29.1",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.0",
+    "thop": "0.1.1-2209072238",
+    "codecarbon": "3.3.1",
+    "psutil": "7.2.2",
+    "numpy": "2.4.6"
+  }
+}

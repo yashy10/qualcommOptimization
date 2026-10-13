@@ -1,0 +1,540 @@
+{
+ "execution_summary": {
+  "estimated_inference_time": 26690,
+  "estimated_inference_peak_memory": 29462528,
+  "first_load_time": 61849,
+  "first_load_peak_memory": 14475264,
+  "warm_load_time": 61102,
+  "warm_load_peak_memory": 14479360,
+  "compile_time": 0,
+  "compile_peak_memory": 0,
+  "compile_memory_increase_range": [
+   0,
+   0
+  ],
+  "compile_memory_peak_range": [
+   0,
+   0
+  ],
+  "first_load_memory_increase_range": [
+   9409296,
+   10209216
+  ],
+  "first_load_memory_peak_range": [
+   11542528,
+   12342448
+  ],
+  "warm_load_memory_increase_range": [
+   9407904,
+   10210288
+  ],
+  "warm_load_memory_peak_range": [
+   11542528,
+   12344912
+  ],
+  "inference_memory_increase_range": [
+   0,
+   0
+  ],
+  "inference_memory_peak_range": [
+   14274560,
+   17110224
+  ],
+  "all_compile_times": [],
+  "all_first_load_times": [
+   61849
+  ],
+  "all_warm_load_times": [
+   61102
+  ],
+  "all_inference_times": [
+   41071,
+   32357,
+   31548,
+   30162,
+   28917,
+   29266,
+   29349,
+   28950,
+   28914,
+   30346,
+   29189,
+   26690,
+   28987,
+   28970,
+   29106,
+   29443,
+   29215,
+   28862,
+   29013,
+   29278,
+   29221,
+   28801,
+   29919,
+   28858,
+   28695,
+   28452,
+   28518,
+   28577,
+   28744,
+   28891,
+   28508,
+   28742,
+   28932,
+   28703,
+   28736,
+   29031,
+   28478,
+   28989,
+   28685,
+   28515,
+   28975,
+   28888,
+   29211,
+   29024,
+   28780,
+   28659,
+   28670,
+   28916,
+   28555,
+   28964,
+   28938,
+   28692,
+   28678,
+   28373,
+   28486,
+   28513,
+   28642,
+   28721,
+   29613,
+   28463,
+   28549,
+   29609,
+   28671,
+   28479,
+   28320,
+   28723,
+   28528,
+   28592,
+   28716,
+   28602,
+   28666,
+   28605,
+   28666,
+   28383,
+   28720,
+   28420,
+   28644,
+   28752,
+   28814,
+   28305,
+   28620,
+   28338,
+   28465,
+   28223,
+   28285,
+   28227,
+   28300,
+   28470,
+   28503,
+   28673,
+   28621,
+   28578,
+   28784,
+   29030,
+   28775,
+   28635,
+   28987,
+   28791,
+   28713,
+   28383
+  ]
+ },
+ "execution_detail": [
+  {
+   "name": "/features/features.0/features.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 710,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.1/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 756,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.1/conv/conv.1/Conv",
+   "type": "Conv",
+   "compute_unit": "CPU",
+   "execution_time": 503,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.2/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 3501,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.2/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 1733,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.2/conv/conv.2/Conv",
+   "type": "Conv",
+   "compute_unit": "CPU",
+   "execution_time": 695,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.3/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 1448,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.3/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 939,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.3/conv/conv.2/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 1056,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.4/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 1448,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.4/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 595,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.4/conv/conv.2/Conv",
+   "type": "Conv",
+   "compute_unit": "CPU",
+   "execution_time": 341,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.5/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 571,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.5/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 349,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.5/conv/conv.2/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 321,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.6/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 556,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.6/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 346,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.6/conv/conv.2/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 312,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.7/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 555,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.7/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 262,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.7/conv/conv.2/Conv",
+   "type": "Conv",
+   "compute_unit": "CPU",
+   "execution_time": 196,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.8/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 482,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.8/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 232,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.8/conv/conv.2/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 308,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.9/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 406,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.9/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 223,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.9/conv/conv.2/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 304,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.10/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 398,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.10/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 241,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.10/conv/conv.2/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 317,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.11/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 404,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.11/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 222,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.11/conv/conv.2/Conv",
+   "type": "Conv",
+   "compute_unit": "CPU",
+   "execution_time": 404,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.12/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 688,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.12/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 297,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.12/conv/conv.2/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 583,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.13/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 699,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.13/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 298,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.13/conv/conv.2/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 580,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.14/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 687,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.14/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 247,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.14/conv/conv.2/Conv",
+   "type": "Conv",
+   "compute_unit": "CPU",
+   "execution_time": 336,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.15/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 594,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.15/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 240,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.15/conv/conv.2/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 673,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.16/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 518,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.16/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 222,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.16/conv/conv.2/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 512,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.17/conv/conv.0/conv.0.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 578,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.17/conv/conv.1/conv.1.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 232,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.17/conv/conv.2/Conv",
+   "type": "Conv",
+   "compute_unit": "CPU",
+   "execution_time": 907,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.18/features.18.0/Conv",
+   "type": "FusedConv",
+   "compute_unit": "CPU",
+   "execution_time": 1186,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/GlobalAveragePool",
+   "type": "GlobalAveragePool",
+   "compute_unit": "CPU",
+   "execution_time": 79,
+   "execution_cycles": 0
+  },
+  {
+   "name": "node_Reshape_0",
+   "type": "Reshape",
+   "compute_unit": "CPU",
+   "execution_time": 48,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/classifier/classifier.1/Gemm",
+   "type": "Gemm",
+   "compute_unit": "CPU",
+   "execution_time": 76,
+   "execution_cycles": 0
+  }
+ ]
+}

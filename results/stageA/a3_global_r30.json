@@ -1,0 +1,47 @@
+{
+  "name": "a3_global_r30",
+  "stage": "A",
+  "group": "A3",
+  "what_we_did": "A3: global channel pruning ratio 0.3, group magnitude p=2, isomorphic, round_to 8, adaptive BN",
+  "result_type": "provisional (quick-eval on the 10% subset, no fine-tuning)",
+  "split": "quickeval_subset_10",
+  "images_evaluated": 2700,
+  "accuracy": 39.41,
+  "worst_class": "SeaLake",
+  "worst_class_accuracy": 5.67,
+  "per_class_accuracy": {
+    "AnnualCrop": 39.33,
+    "Forest": 93.33,
+    "HerbaceousVegetation": 47.67,
+    "Highway": 23.2,
+    "Industrial": 21.6,
+    "Pasture": 45.5,
+    "PermanentCrop": 43.6,
+    "Residential": 29.67,
+    "River": 42.0,
+    "SeaLake": 5.67
+  },
+  "params_million": 1.0946,
+  "macs_giga": 0.1421,
+  "count_method": "thop on the PyTorch model",
+  "size_mb": 4.17,
+  "export_ok": true,
+  "export_agreement": "500/500",
+  "model": "models/stageA/a3_global_r30.pt",
+  "onnx": "models/stageA/a3_global_r30_fp32.onnx",
+  "config": "configs/a3_global_r30.json",
+  "remove_blocks": [],
+  "width": {
+    "ratio": 0.3,
+    "global": true,
+    "criterion": "magnitude",
+    "round_to": 8,
+    "isomorphic": true,
+    "taylor_batches": null,
+    "ignored_layers": [
+      "classifier.1"
+    ]
+  },
+  "measured_at": "2026-10-13T13:23:18",
+  "seconds": 189
+}

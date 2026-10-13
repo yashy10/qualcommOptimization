@@ -1,0 +1,73 @@
+{
+  "name": "q1_perchannel_minmax_s8s8",
+  "created_at": "2026-10-13T11:26:46",
+  "input_model": "models/student_fp32.onnx",
+  "input_model_sha256": "2eed36a81af42f749c1b47dc4723626b3978aff4b40672cbcb69e8160749d4e4",
+  "preprocessed_model": "models/student_fp32_preprocessed.onnx",
+  "quant_format": "QDQ",
+  "per_channel": true,
+  "reduce_range": false,
+  "calibration_method": "minmax",
+  "percentile": null,
+  "calibration_file": "subsets/calibration_indices_300_seed42.json",
+  "calibration_file_sha256": "ee449790f88939e8435602b54324a0e78ff83e4a527cee4ca03c74b97f925dbc",
+  "calibration_images": 300,
+  "activation_type": "QInt8",
+  "weight_type": "QInt8",
+  "extra_options": {},
+  "nodes_to_exclude": [],
+  "onnxruntime_version": "1.31.0",
+  "output_model_sha256": "379f7bd15e748a0916ec51dec11ec94a1cd73ed72055f10d1b548937253e8a24",
+  "checks": {
+    "model": "models/q1_perchannel_minmax_s8s8.onnx",
+    "checks": [
+      {
+        "check": "loads in ONNX Runtime and accepts (1, 3, 224, 224)",
+        "passed": true,
+        "detail": "input input [1, 3, 224, 224] tensor(float)"
+      },
+      {
+        "check": "outputs 10 scores",
+        "passed": true,
+        "detail": "output shape (1, 10)"
+      },
+      {
+        "check": "static QDQ: QuantizeLinear and DequantizeLinear present",
+        "passed": true,
+        "detail": "66 QuantizeLinear, 172 DequantizeLinear"
+      },
+      {
+        "check": "no dynamic-quantization operators",
+        "passed": true,
+        "detail": "no ConvInteger, MatMulInteger or DynamicQuantizeLinear"
+      },
+      {
+        "check": "size about a quarter of fp32",
+        "passed": true,
+        "detail": "2.49 MB vs 8.51 MB, 3.41x smaller"
+      },
+      {
+        "check": "predictions agree with fp32 on 500 images",
+        "passed": true,
+        "detail": "98.2% agree; accuracy on these: fp32 99.6%, quantized 97.8%"
+      }
+    ],
+    "node_counts": {
+      "DequantizeLinear": 172,
+      "QuantizeLinear": 66,
+      "Conv": 52,
+      "Add": 10,
+      "GlobalAveragePool": 1,
+      "Flatten": 1,
+      "Gemm": 1
+    },
+    "size_mb": 2.491,
+    "baseline_size_mb": 8.506,
+    "size_ratio": 3.41,
+    "agreement_images": 500,
+    "agreement_percent": 98.2,
+    "fp32_accuracy_on_these": 99.6,
+    "quantized_accuracy_on_these": 97.8,
+    "passed": true
+  }
+}

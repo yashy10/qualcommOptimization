@@ -1,0 +1,47 @@
+{
+  "name": "a4_uniform_r20",
+  "stage": "A",
+  "group": "A4",
+  "what_we_did": "A4: uniform channel pruning ratio 0.2, group magnitude p=2, round_to 8, adaptive BN",
+  "result_type": "provisional (quick-eval on the 10% subset, no fine-tuning)",
+  "split": "quickeval_subset_10",
+  "images_evaluated": 2700,
+  "accuracy": 65.0,
+  "worst_class": "Industrial",
+  "worst_class_accuracy": 51.2,
+  "per_class_accuracy": {
+    "AnnualCrop": 79.33,
+    "Forest": 51.67,
+    "HerbaceousVegetation": 64.33,
+    "Highway": 62.0,
+    "Industrial": 51.2,
+    "Pasture": 68.5,
+    "PermanentCrop": 61.2,
+    "Residential": 84.0,
+    "River": 68.4,
+    "SeaLake": 57.67
+  },
+  "params_million": 1.4212,
+  "macs_giga": 0.1984,
+  "count_method": "thop on the PyTorch model",
+  "size_mb": 5.409,
+  "export_ok": true,
+  "export_agreement": "500/500",
+  "model": "models/stageA/a4_uniform_r20.pt",
+  "onnx": "models/stageA/a4_uniform_r20_fp32.onnx",
+  "config": "configs/a4_uniform_r20.json",
+  "remove_blocks": [],
+  "width": {
+    "ratio": 0.2,
+    "global": false,
+    "criterion": "magnitude",
+    "round_to": 8,
+    "isomorphic": false,
+    "taylor_batches": null,
+    "ignored_layers": [
+      "classifier.1"
+    ]
+  },
+  "measured_at": "2026-10-13T13:35:18",
+  "seconds": 259
+}
