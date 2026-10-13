@@ -1,0 +1,30 @@
+# Local environments and generated Python files
+edge-ai-env/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Downloaded data, supplied checkpoints, and reproducible intermediate models
+/data/
+/cache/
+*.pt
+*.onnx
+!/submission/student_model_int8.onnx
+
+# Report build products and working copies; final sources live in submission/
+/tmp/
+/output/
+*.aux
+*.log
+*.out
+*.synctex.gz
+
+# Local credentials
+.env
+.env.*
+!.env.example
+.qai_hub/
+*.pem
+*.key

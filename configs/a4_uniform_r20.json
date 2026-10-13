@@ -1,0 +1,27 @@
+{
+  "name": "a4_uniform_r20",
+  "checkpoint": "student_mobilenetv2_distilled.pt",
+  "checkpoint_sha256": "842e9dc640bbdb6c71186ff2ecae06f670b1aef7be8ac6b64ede56f5c727c9a8",
+  "seed": 0,
+  "remove_blocks": [],
+  "width": {
+    "ratio": 0.2,
+    "global": false,
+    "criterion": "magnitude",
+    "round_to": 8,
+    "isomorphic": false,
+    "taylor_batches": null,
+    "ignored_layers": [
+      "classifier.1"
+    ]
+  },
+  "adaptive_bn": {
+    "batches": 100,
+    "batch_size": 32,
+    "subset": "subsets/finetune_subset_20.json"
+  },
+  "torch_pruning": "1.6.1",
+  "created_at": "2026-10-13T13:34:59",
+  "model": "models/stageA/a4_uniform_r20.pt",
+  "model_sha256": "8acd92a2bb24d158b203882deab1325f3090295236bebc4c5db507ca65c78005"
+}
