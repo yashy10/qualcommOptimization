@@ -19,7 +19,9 @@ transform = transforms.Compose([
 
 
 def load_dataset():
-    return datasets.EuroSAT(root=ROOT / "data", download=False, transform=transform)
+    # Downloads EuroSAT (94 MB) into ./data the first time; reuses it afterwards
+    present = (ROOT / "data" / "eurosat" / "2750").exists()
+    return datasets.EuroSAT(root=ROOT / "data", download=not present, transform=transform)
 
 
 def get_loaders(batch_size=32, limit=None):

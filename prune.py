@@ -135,8 +135,12 @@ def count(model):
     return round(params / 1e6, 4), round(macs / 1e9, 4)
 
 
-def evaluate(model, subset_file=QUICKEVAL_SUBSET, batch_size=64):
-    """Accuracy, per-class accuracy and worst class on one subset (provisional, not official)."""
+def evaluate(model, subset_file=QUICKEVAL_SUBSET, batch_size=64, device="cpu"):
+    """Accuracy, per-class accuracy and worst class on one subset (provisional, not official).
+
+    `device` is where the model already lives; batches are moved there and the confusion
+    matrix is accumulated on the CPU.
+    """
     classes = load_dataset().classes
     loader = subset_loader(subset_file, batch_size)
     n = len(classes)
@@ -144,7 +148,8 @@ def evaluate(model, subset_file=QUICKEVAL_SUBSET, batch_size=64):
     model.eval()
     with torch.no_grad():
         for x, y in loader:
-            confusion += torch.bincount(y * n + model(x).argmax(1), minlength=n * n).view(n, n)
+            predictions = model(x.to(device)).argmax(1).cpu()
+            confusion += torch.bincount(y * n + predictions, minlength=n * n).view(n, n)
     per_class = {c: round(v.item() * 100, 2) for c, v in zip(classes, confusion.diag().float() / confusion.sum(1).clamp(min=1))}
     worst = min(per_class, key=per_class.get)
     return {"accuracy": round(confusion.diag().sum().item() / confusion.sum().item() * 100, 2),

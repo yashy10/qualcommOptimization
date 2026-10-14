@@ -142,17 +142,17 @@ def main():
         if args.probe:
             print(f"[probe] one epoch of {len(loader)} batches took {seconds}s ({len(indices) / seconds:.1f} images/s)")
             return
-        model.to("cpu")
-        quick = evaluate(model)
-        model.to(device)
+        quick = evaluate(model, device=device)
         history.append({"epoch": epoch, "mean_loss": round(running / len(loader), 4),
                         "quick_eval_accuracy": quick["accuracy"], "seconds": seconds})
         print(f"[{label}] epoch {epoch}: loss {running / len(loader):.3f}, quick-eval {quick['accuracy']:.2f}% "
               f"(worst {quick['worst_class']} {quick['worst_class_accuracy']:.1f}), {seconds}s")
 
-    model.to("cpu").eval()
-    unseen = {"accuracy": None, "images": 0, "per_class_accuracy": None} if args.no_unseen else evaluate(model, unseen_file())
-    quick = evaluate(model)
+    model.eval()
+    unseen = ({"accuracy": None, "images": 0, "per_class_accuracy": None} if args.no_unseen
+              else evaluate(model, unseen_file(), device=device))
+    quick = evaluate(model, device=device)
+    model.to("cpu")
     params, macs = count(model)
     torch.save(model, out)
     source_config = args.model.with_suffix(".json")
