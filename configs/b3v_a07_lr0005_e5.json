@@ -1,0 +1,72 @@
+{
+  "name": "b3v_a07_lr0005_e5",
+  "created_at": "2026-10-13T18:28:37",
+  "source_model": "models/stageA/a2_blocks3.pt",
+  "source_config": "configs/a2_blocks3.json",
+  "fine_tune": {
+    "data": "subsets/finetune_subset_20.json",
+    "images": 5400,
+    "augmentation": "none",
+    "optimizer": "SGD momentum 0.9, lr 0.0005, cosine to 0, weight decay 4e-05",
+    "batch_size": 32,
+    "epochs": 5,
+    "seed": 0,
+    "device": "mps",
+    "loss": "(1-0.7)*CE + 0.7*T^2*KL, T=4.0",
+    "teacher_cache": "cache/teacher_logits_ft20.pt"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "mean_loss": 0.9542,
+      "quick_eval_accuracy": 98.78,
+      "seconds": 51
+    },
+    {
+      "epoch": 2,
+      "mean_loss": 0.6604,
+      "quick_eval_accuracy": 99.15,
+      "seconds": 51
+    },
+    {
+      "epoch": 3,
+      "mean_loss": 0.549,
+      "quick_eval_accuracy": 98.89,
+      "seconds": 51
+    },
+    {
+      "epoch": 4,
+      "mean_loss": 0.4897,
+      "quick_eval_accuracy": 99.11,
+      "seconds": 134
+    },
+    {
+      "epoch": 5,
+      "mean_loss": 0.4736,
+      "quick_eval_accuracy": 99.26,
+      "seconds": 135
+    }
+  ],
+  "quick_eval_accuracy": 99.26,
+  "quick_eval_worst": [
+    "Highway",
+    98.0
+  ],
+  "unseen_80_accuracy": 98.72,
+  "unseen_80_images": 21600,
+  "unseen_80_per_class": {
+    "AnnualCrop": 98.87,
+    "Forest": 99.46,
+    "HerbaceousVegetation": 99.0,
+    "Highway": 97.4,
+    "Industrial": 99.85,
+    "Pasture": 98.0,
+    "PermanentCrop": 97.8,
+    "Residential": 97.33,
+    "River": 99.65,
+    "SeaLake": 99.54
+  },
+  "params_million": 1.8476,
+  "macs_giga": 0.2871,
+  "model_sha256": "0df826bef7502c0874b7619021120192d4782c152b36200af2154282de9e8ab1"
+}

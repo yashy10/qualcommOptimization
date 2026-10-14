@@ -1,0 +1,102 @@
+{
+  "name": "b1_global20_kd_lr001_e10",
+  "created_at": "2026-10-13T17:44:23",
+  "source_model": "models/stageA/a3_global_r20.pt",
+  "source_config": "configs/a3_global_r20.json",
+  "fine_tune": {
+    "data": "subsets/finetune_subset_20.json",
+    "images": 5400,
+    "augmentation": "none",
+    "optimizer": "SGD momentum 0.9, lr 0.001, cosine to 0, weight decay 4e-05",
+    "batch_size": 32,
+    "epochs": 10,
+    "seed": 0,
+    "device": "mps",
+    "loss": "(1-0.7)*CE + 0.7*T^2*KL, T=4.0",
+    "teacher_cache": "cache/teacher_logits_ft20.pt"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "mean_loss": 2.6504,
+      "quick_eval_accuracy": 88.3,
+      "seconds": 46
+    },
+    {
+      "epoch": 2,
+      "mean_loss": 1.349,
+      "quick_eval_accuracy": 94.63,
+      "seconds": 62
+    },
+    {
+      "epoch": 3,
+      "mean_loss": 0.9569,
+      "quick_eval_accuracy": 94.81,
+      "seconds": 58
+    },
+    {
+      "epoch": 4,
+      "mean_loss": 0.7778,
+      "quick_eval_accuracy": 96.67,
+      "seconds": 65
+    },
+    {
+      "epoch": 5,
+      "mean_loss": 0.641,
+      "quick_eval_accuracy": 97.0,
+      "seconds": 48
+    },
+    {
+      "epoch": 6,
+      "mean_loss": 0.5613,
+      "quick_eval_accuracy": 96.85,
+      "seconds": 47
+    },
+    {
+      "epoch": 7,
+      "mean_loss": 0.511,
+      "quick_eval_accuracy": 97.0,
+      "seconds": 68
+    },
+    {
+      "epoch": 8,
+      "mean_loss": 0.4725,
+      "quick_eval_accuracy": 97.37,
+      "seconds": 45
+    },
+    {
+      "epoch": 9,
+      "mean_loss": 0.4493,
+      "quick_eval_accuracy": 97.41,
+      "seconds": 44
+    },
+    {
+      "epoch": 10,
+      "mean_loss": 0.4478,
+      "quick_eval_accuracy": 97.22,
+      "seconds": 45
+    }
+  ],
+  "quick_eval_accuracy": 97.22,
+  "quick_eval_worst": [
+    "PermanentCrop",
+    88.4
+  ],
+  "unseen_80_accuracy": 97.31,
+  "unseen_80_images": 21600,
+  "unseen_80_per_class": {
+    "AnnualCrop": 97.21,
+    "Forest": 99.12,
+    "HerbaceousVegetation": 97.75,
+    "Highway": 95.35,
+    "Industrial": 99.6,
+    "Pasture": 96.5,
+    "PermanentCrop": 92.55,
+    "Residential": 97.46,
+    "River": 97.4,
+    "SeaLake": 99.21
+  },
+  "params_million": 1.4386,
+  "macs_giga": 0.1789,
+  "model_sha256": "eef1303908a9574dc476769903c6a49ae23f1e60d9214772e65c94bbc75315ab"
+}

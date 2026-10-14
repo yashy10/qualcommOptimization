@@ -1,0 +1,638 @@
+{
+ "execution_summary": {
+  "estimated_inference_time": 2985,
+  "estimated_inference_peak_memory": 22499328,
+  "first_load_time": 96217,
+  "first_load_peak_memory": 13529088,
+  "warm_load_time": 79937,
+  "warm_load_peak_memory": 16183296,
+  "compile_time": 0,
+  "compile_peak_memory": 0,
+  "compile_memory_increase_range": [
+   0,
+   0
+  ],
+  "compile_memory_peak_range": [
+   0,
+   0
+  ],
+  "first_load_memory_increase_range": [
+   9346736,
+   10146656
+  ],
+  "first_load_memory_peak_range": [
+   10596352,
+   11396272
+  ],
+  "warm_load_memory_increase_range": [
+   9339552,
+   10141936
+  ],
+  "warm_load_memory_peak_range": [
+   13246464,
+   14048848
+  ],
+  "inference_memory_increase_range": [
+   0,
+   0
+  ],
+  "inference_memory_peak_range": [
+   3715072,
+   10233776
+  ],
+  "all_compile_times": [],
+  "all_first_load_times": [
+   96217
+  ],
+  "all_warm_load_times": [
+   79937
+  ],
+  "all_inference_times": [
+   8104,
+   2985,
+   6935,
+   6887,
+   3785,
+   4484,
+   4299,
+   4262,
+   4290,
+   4302,
+   4305,
+   4623,
+   4478,
+   4276,
+   4272,
+   4311,
+   4273,
+   4146,
+   4245,
+   4297,
+   4241,
+   4283,
+   4319,
+   4298,
+   4286,
+   4226,
+   4236,
+   4241,
+   4362,
+   4317,
+   4322,
+   4256,
+   4290,
+   4270,
+   4598,
+   4289,
+   4309,
+   4448,
+   4408,
+   4319,
+   4321,
+   4230,
+   4321,
+   4284,
+   4206,
+   4283,
+   4344,
+   4332,
+   4273,
+   4296,
+   4477,
+   4415,
+   4297,
+   4207,
+   4298,
+   4276,
+   4326,
+   4306,
+   4323,
+   4265,
+   4581,
+   4267,
+   4270,
+   4389,
+   4352,
+   4332,
+   4398,
+   4258,
+   4264,
+   4247,
+   4326,
+   4264,
+   4319,
+   4436,
+   4341,
+   4288,
+   4250,
+   4379,
+   4277,
+   4249,
+   4308,
+   4299,
+   4194,
+   4288,
+   4273,
+   4333,
+   4278,
+   4429,
+   4336,
+   4343,
+   4405,
+   4254,
+   4256,
+   4269,
+   4295,
+   4342,
+   4324,
+   4247,
+   4345,
+   4310
+  ]
+ },
+ "execution_detail": [
+  {
+   "name": "input_QuantizeLinear",
+   "type": "QuantizeLinear",
+   "compute_unit": "CPU",
+   "execution_time": 189,
+   "execution_cycles": 0
+  },
+  {
+   "name": "Transpose",
+   "type": "Transpose",
+   "compute_unit": "CPU",
+   "execution_time": 100,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.0/features.0.0/Conv_token_1",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 224,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.1/conv/conv.0/conv.0.0/Conv_token_4",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 142,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.1/conv/conv.1/Conv_token_7",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 68,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.2/conv/conv.0/conv.0.0/Conv_token_10",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 225,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.2/conv/conv.1/conv.1.0/Conv_token_13",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 165,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.2/conv/conv.2/Conv_token_16",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 58,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.3/conv/conv.0/conv.0.0/Conv_token_19",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 102,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.3/conv/conv.1/conv.1.0/Conv_token_22",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 111,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.3/conv/conv.2/Conv_token_25",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 57,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.3/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 76,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.4/conv/conv.0/conv.0.0/Conv_token_29",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 98,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.4/conv/conv.1/conv.1.0/Conv_token_32",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 53,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.4/conv/conv.2/Conv_token_35",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 36,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.5/conv/conv.0/conv.0.0/Conv_token_38",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 57,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.5/conv/conv.1/conv.1.0/Conv_token_41",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 57,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.5/conv/conv.2/Conv_token_44",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 39,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.5/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 26,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.6/conv/conv.0/conv.0.0/Conv_token_48",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 59,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.6/conv/conv.1/conv.1.0/Conv_token_51",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 61,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.6/conv/conv.2/Conv_token_54",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 38,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.6/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 23,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.7/conv/conv.0/conv.0.0/Conv_token_58",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 116,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.7/conv/conv.1/conv.1.0/Conv_token_61",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 94,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.7/conv/conv.2/Conv_token_64",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 90,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.8/conv/conv.0/conv.0.0/Conv_token_67",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 147,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.8/conv/conv.1/conv.1.0/Conv_token_70",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 101,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.8/conv/conv.2/Conv_token_73",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 93,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.8/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 79,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.9/conv/conv.0/conv.0.0/Conv_token_77",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 113,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.9/conv/conv.1/conv.1.0/Conv_token_80",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 104,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.9/conv/conv.2/Conv_token_83",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 93,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.9/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 80,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.10/conv/conv.0/conv.0.0/Conv_token_87",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 107,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.10/conv/conv.1/conv.1.0/Conv_token_90",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 101,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.10/conv/conv.2/Conv_token_93",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 92,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.10/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 75,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.11/conv/conv.0/conv.0.0/Conv_token_97",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 114,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.11/conv/conv.1/conv.1.0/Conv_token_100",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 102,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.11/conv/conv.2/Conv_token_103",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 104,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.12/conv/conv.0/conv.0.0/Conv_token_106",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 137,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.12/conv/conv.1/conv.1.0/Conv_token_109",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 111,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.12/conv/conv.2/Conv_token_112",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 114,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.12/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 88,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.13/conv/conv.0/conv.0.0/Conv_token_116",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 135,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.13/conv/conv.1/conv.1.0/Conv_token_119",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 111,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.13/conv/conv.2/Conv_token_122",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 112,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.13/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 91,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.14/conv/conv.0/conv.0.0/Conv_token_126",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 137,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.14/conv/conv.1/conv.1.0/Conv_token_129",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 96,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.14/conv/conv.2/Conv_token_132",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 107,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.15/conv/conv.0/conv.0.0/Conv_token_135",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 139,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.15/conv/conv.1/conv.1.0/Conv_token_138",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 100,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.15/conv/conv.2/Conv_token_141",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 127,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.15/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 74,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.16/conv/conv.0/conv.0.0/Conv_token_145",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 131,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.16/conv/conv.1/conv.1.0/Conv_token_148",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 99,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.16/conv/conv.2/Conv_token_151",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 123,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.16/Add",
+   "type": "QLinearAdd",
+   "compute_unit": "CPU",
+   "execution_time": 74,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.17/conv/conv.0/conv.0.0/Conv_token_155",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 129,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.17/conv/conv.1/conv.1.0/Conv_token_158",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 107,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.17/conv/conv.2/Conv_token_161",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 178,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/features/features.18/features.18.0/Conv_token_164",
+   "type": "QLinearConv",
+   "compute_unit": "CPU",
+   "execution_time": 205,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/GlobalAveragePool",
+   "type": "QLinearGlobalAveragePool",
+   "compute_unit": "CPU",
+   "execution_time": 96,
+   "execution_cycles": 0
+  },
+  {
+   "name": "Transpose_token_176",
+   "type": "Transpose",
+   "compute_unit": "CPU",
+   "execution_time": 48,
+   "execution_cycles": 0
+  },
+  {
+   "name": "node_Reshape_0",
+   "type": "Reshape",
+   "compute_unit": "CPU",
+   "execution_time": 49,
+   "execution_cycles": 0
+  },
+  {
+   "name": "/classifier/classifier.1/Gemm",
+   "type": "QGemm",
+   "compute_unit": "CPU",
+   "execution_time": 84,
+   "execution_cycles": 0
+  },
+  {
+   "name": "output_DequantizeLinear",
+   "type": "DequantizeLinear",
+   "compute_unit": "CPU",
+   "execution_time": 54,
+   "execution_cycles": 0
+  }
+ ]
+}

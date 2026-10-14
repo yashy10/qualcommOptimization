@@ -1,0 +1,75 @@
+{
+  "name": "b2_blocks6-9-16_global20_kd_lr001_e3_int8",
+  "created_at": "2026-10-13T16:55:10",
+  "input_model": "models/stageC/b2_blocks6-9-16_global20_kd_lr001_e3_fp32.onnx",
+  "input_model_sha256": "357a2deb6a0fdbf664d26a4bb0ca86da8d4fab49db8f80e484fd5d46fe4981ba",
+  "preprocessed_model": "models/b2_blocks6-9-16_global20_kd_lr001_e3_fp32_preprocessed.onnx",
+  "quant_format": "QDQ",
+  "per_channel": true,
+  "reduce_range": false,
+  "calibration_method": "percentile",
+  "percentile": 99.99,
+  "calibration_file": "subsets/calibration_indices_300_seed42.json",
+  "calibration_file_sha256": "ee449790f88939e8435602b54324a0e78ff83e4a527cee4ca03c74b97f925dbc",
+  "calibration_images": 300,
+  "activation_type": "QInt8",
+  "weight_type": "QInt8",
+  "extra_options": {
+    "CalibPercentile": 99.99
+  },
+  "nodes_to_exclude": [],
+  "onnxruntime_version": "1.31.0",
+  "output_model_sha256": "0c1b5ea618056da1f1009c2391bf13fc077d505f6d3f6e84b7cef7c885f0b3fd",
+  "checks": {
+    "model": "models/b2_blocks6-9-16_global20_kd_lr001_e3_int8.onnx",
+    "checks": [
+      {
+        "check": "loads in ONNX Runtime and accepts (1, 3, 224, 224)",
+        "passed": true,
+        "detail": "input input [1, 3, 224, 224] tensor(float)"
+      },
+      {
+        "check": "outputs 10 scores",
+        "passed": true,
+        "detail": "output shape (1, 10)"
+      },
+      {
+        "check": "static QDQ: QuantizeLinear and DequantizeLinear present",
+        "passed": true,
+        "detail": "54 QuantizeLinear, 142 DequantizeLinear"
+      },
+      {
+        "check": "no dynamic-quantization operators",
+        "passed": true,
+        "detail": "no ConvInteger, MatMulInteger or DynamicQuantizeLinear"
+      },
+      {
+        "check": "size about a quarter of fp32",
+        "passed": false,
+        "detail": "1.38 MB vs 8.51 MB, 6.14x smaller"
+      },
+      {
+        "check": "predictions agree with fp32 on 500 images",
+        "passed": true,
+        "detail": "96.6% agree; accuracy on these: fp32 99.6%, quantized 96.6%"
+      }
+    ],
+    "node_counts": {
+      "DequantizeLinear": 142,
+      "QuantizeLinear": 54,
+      "Conv": 43,
+      "Add": 7,
+      "GlobalAveragePool": 1,
+      "Flatten": 1,
+      "Gemm": 1
+    },
+    "size_mb": 1.385,
+    "baseline_size_mb": 8.506,
+    "size_ratio": 6.14,
+    "agreement_images": 500,
+    "agreement_percent": 96.6,
+    "fp32_accuracy_on_these": 99.6,
+    "quantized_accuracy_on_these": 96.6,
+    "passed": true
+  }
+}

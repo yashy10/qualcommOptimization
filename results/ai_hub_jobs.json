@@ -32,5 +32,27 @@
     "compile_job_url": "https://workbench.aihub.qualcomm.com/jobs/jgn1kl6vp/",
     "profile_job_id": "jp2oe0kxg",
     "profile_job_url": "https://workbench.aihub.qualcomm.com/jobs/jp2oe0kxg/"
+  },
+  {
+    "label": "b2_blocks6-9-16_global20_kd_lr001_e3_int8",
+    "submitted_at": "2026-10-13T17:08:44",
+    "model": "models/stageC/b2_blocks6-9-16_global20_kd_lr001_e3_int8.onnx",
+    "device": "Dragonwing RB3 Gen 2 Vision Kit",
+    "compile_options": "--target_runtime onnx",
+    "compile_job_id": "j5q4ve24g",
+    "compile_job_url": "https://workbench.aihub.qualcomm.com/jobs/j5q4ve24g/",
+    "profile_job_id": "jglwl6k8p",
+    "profile_job_url": "https://workbench.aihub.qualcomm.com/jobs/jglwl6k8p/"
+  },
+  {
+    "label": "b1_global20_kd_lr001_e3_int8",
+    "submitted_at": "2026-10-13T17:08:47",
+    "model": "models/stageC/b1_global20_kd_lr001_e3_int8.onnx",
+    "device": "Dragonwing RB3 Gen 2 Vision Kit",
+    "compile_options": "--target_runtime onnx",
+    "compile_job_id": "j56owe105",
+    "compile_job_url": "https://workbench.aihub.qualcomm.com/jobs/j56owe105/",
+    "profile_job_id": "jp3o6vmlp",
+    "profile_job_url": "https://workbench.aihub.qualcomm.com/jobs/jp3o6vmlp/"
   }
 ]

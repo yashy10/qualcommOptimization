@@ -1,0 +1,73 @@
+{
+  "name": "b3_hard_lr001_e3_int8",
+  "what_we_did": "B3-hard: blocks 6,9,16 removed, 3-epoch recovery with hard labels only (lr 0.001, cosine, MPS); KD-vs-hard control; then static QDQ int8 (per-channel, Percentile 99.99, S8S8, 300 calibration images, re-calibrated)",
+  "result_type": "local measurement (ours, not an organizer-provided number)",
+  "smoke_test": false,
+  "model": "models/stageC/b3_hard_lr001_e3_int8.onnx",
+  "model_sha256": "56251df151ca10ff774e6c2d3f1dc76c3b2cf1cb6e10d8c7de47e941461b865b",
+  "format": "onnx",
+  "measured_at": "2026-10-13T17:19:18",
+  "conditions": {
+    "background_cpu_percent": 41.5,
+    "on_ac_power": false
+  },
+  "timing_status": "provisional",
+  "runtime": "onnxruntime 1.31.0 (CPUExecutionProvider)",
+  "thread_setting": "onnxruntime default (intra_op_num_threads=0)",
+  "ram_before_model_mb": 49.56,
+  "latency_ms": 1.552,
+  "latency_std_ms": 1.291,
+  "latency_median_ms": 1.121,
+  "latency_p95_ms": 3.45,
+  "peak_ram_mb": 75.53,
+  "peak_ram_maxrss_mb": 75.53,
+  "joules_per_inference": 0.03647,
+  "energy_source": "estimate",
+  "codecarbon_mode": "tdp_estimate",
+  "codecarbon_hardware": [
+    "RAM()",
+    "CPU(Cpu Load)"
+  ],
+  "energy_inferences": 15570,
+  "params_million": 1.8338,
+  "macs_giga": 0.2627,
+  "count_method": "onnx graph",
+  "size_mb": 2.052,
+  "accuracy": 98.36,
+  "worst_class": "Industrial",
+  "worst_class_accuracy": 96.8,
+  "per_class_accuracy": {
+    "AnnualCrop": 98.37,
+    "Forest": 96.9,
+    "HerbaceousVegetation": 99.43,
+    "Highway": 98.92,
+    "Industrial": 96.8,
+    "Pasture": 97.7,
+    "PermanentCrop": 98.0,
+    "Residential": 99.9,
+    "River": 96.92,
+    "SeaLake": 99.97
+  },
+  "split": "full_dataset_judge_instruction",
+  "images_evaluated": 27000,
+  "method": {
+    "input": "one image per inference, shape (1, 3, 224, 224); random values for timing, real images for accuracy",
+    "accuracy": "top-1 over one pass of the evaluation set, Section 4 preprocessing",
+    "params_and_macs": "onnx graph",
+    "latency": "mean of 100 timed inferences after 10 warm-up inferences",
+    "peak_ram": "highest process RSS, sampled every 10 ms during the timed inferences (psutil)",
+    "energy": "codecarbon over 15 s of back-to-back inferences, divided by the inference count"
+  },
+  "machine": "Apple M3 Pro, 11 cores, 18 GB RAM, Darwin 25.4.0, CPU only",
+  "environment": {
+    "python": "3.11.14",
+    "torch": "2.14.1",
+    "torchvision": "0.29.1",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.0",
+    "thop": "0.1.1-2209072238",
+    "codecarbon": "3.3.1",
+    "psutil": "7.2.2",
+    "numpy": "2.4.6"
+  }
+}
